@@ -60,8 +60,17 @@
 .casillero .lenta-txt { display: none; font-size: 11px; color: #FFFFFF; background: var(--error); border-radius: 6px; padding: 1px 5px; }
 .casillero.lenta .lenta-txt { display: block; }
 /* casilleros chicos (celular, muchos lugares): ícono al costado del nombre */
+.casillero.angosto { font-size: 10px; letter-spacing: -0.3px; }
 .casillero.chico { flex-direction: row; gap: 6px; padding: 2px 6px 2px 18px; }
-.casillero.chico .ico { width: 36px; height: 80%; }
+.casillero.chico { justify-content: flex-start; }
+.casillero.chico { gap: 4px; padding-left: 16px; padding-right: 4px; font-size: 10px; letter-spacing: -0.4px; }
+.casillero.chico .num { left: 4px; }
+.casillero.chico .ico { width: 24px; height: 80%; }
+.casillero.chico .nom { flex: 1; min-width: 0; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.casillero.chico .engranaje { display: none; }
+.casillero.chico .candado { position: static; width: 14px; height: 14px; flex: none; }
+.casillero.chico .lenta-txt, .casillero.chico.lenta .lenta-txt { display: none; }
+.casillero.chico.lenta { background: var(--error-fondo); }
 .casillero.chico .min { display: none; }
 .casillero.chico .num { top: 50%; margin-top: -8px; }
 
@@ -86,10 +95,10 @@
   display: flex; flex-direction: column; gap: 6px; min-height: 0;
 }
 .panel-titulo { margin: 0; font-size: 16px; text-align: center; }
-.pestanias { display: flex; flex-wrap: wrap; gap: 4px; }
-.pestanias button { flex: 1 1 45%; min-height: 34px; border: 2px solid var(--tinta); border-radius: 8px; background: #F1F5F8; font-size: 12px; font-weight: bold; padding: 2px; }
+.pestanias { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.pestanias button { min-height: 34px; border: 2px solid var(--tinta); border-radius: 8px; background: #F1F5F8; font-size: 12px; font-weight: bold; padding: 2px; }
 .pestanias button[aria-selected="true"] { background: var(--tinta); color: #FFFFFF; }
-.estaciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; overflow: auto; min-height: 0; padding: 2px 2px 6px; }
+.estaciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; overflow: auto; min-height: 0; padding: 2px 2px 6px; }
 .estacion {
   position: relative; min-height: 92px; border: 3px solid var(--tinta); border-radius: 14px; background: #FFFFFF;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px;
@@ -98,11 +107,14 @@
 .estacion.maquina { background: var(--maquina); }
 .estacion .ico { width: 46px; height: 46px; }
 .estacion .min { font-size: 12px; color: var(--tinta-suave); }
+.estacion .nom { max-width: 100%; }
+.estacion .nom.largo { font-size: 11px; letter-spacing: -0.4px; }
 .estacion .engranaje { position: absolute; right: 4px; top: 4px; width: 20px; height: 20px; }
 .estacion[aria-pressed="true"] { background: var(--acento); color: #FFFFFF; box-shadow: 0 4px 0 var(--acento-osc); }
 .estacion[aria-pressed="true"] .min { color: #FFFFFF; }
 .estacion:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
 .estacion.repetir-bloque { background: #FFE7D1; grid-column: 1 / -1; min-height: 60px; flex-direction: row; gap: 8px; }
+.estacion.repetir-bloque[aria-pressed="true"] { background: var(--acento); color: #FFFFFF; }
 .estacion.repetir-bloque .ico { width: 40px; height: 40px; }
 
 /* ---------- Pie ---------- */
@@ -177,18 +189,21 @@
   .item .txt { display: none; }
   .item .ico { width: 22px; height: 22px; }
   .item .marca { position: absolute; right: -3px; bottom: -3px; width: 14px; height: 14px; border-width: 2px; padding: 0; border-radius: 4px; }
-  .materiales { flex-wrap: nowrap; }
-  .materiales button { min-height: 40px; font-size: 10px; padding: 2px; }
   .zona-cinta { min-height: 0; }
   .panel { width: 140px; padding: 5px; }
   .panel-titulo { display: none; }
   .estaciones { gap: 6px; }
-  .estacion { min-height: 62px; font-size: 10px; padding: 2px; }
+  .estacion { min-height: 62px; font-size: 9px; padding: 2px; letter-spacing: -0.3px; }
+  .estacion .nom.largo { font-size: 8px; }
   .estacion .ico { width: 34px; height: 34px; }
   .estacion .min { display: none; }
   .estacion .engranaje { width: 15px; height: 15px; }
   .estacion.repetir-bloque { min-height: 48px; }
-  .pestanias button { min-height: 30px; font-size: 9px; }
+  .pestanias button { min-height: 30px; font-size: 8px; padding: 1px; overflow-wrap: anywhere; }
+  .estacion .nom { overflow-wrap: anywhere; }
+  .cliente.libre .cliente-pide, .cliente.libre .cliente-modelo { display: none; }
+  .materiales { flex: 1; min-width: 0; gap: 3px; }
+  .materiales button { flex: 1 1 0; min-width: 0; font-size: 8px; padding: 0; letter-spacing: -0.3px; }
   .pie { flex-wrap: wrap; gap: 6px; padding: 0 6px 6px; }
   .mensaje { flex: 1 1 100%; min-height: 44px; padding: 2px 6px 2px 2px; }
   .cara-nora { width: 36px; height: 36px; }
@@ -205,7 +220,7 @@
   .accion.producir { min-width: 66px; width: 66px; font-size: 11px; }
   .lote { font-size: 15px; padding: 2px 8px; right: 6px; top: 6px; }
   .repetir { top: 4px; gap: 3px; padding: 2px 4px; font-size: 12px; }
-  .repetir .ico { width: 22px; height: 22px; }
-  .repetir button { min-width: 32px; height: 32px; font-size: 12px; }
+  .repetir .ico, .repetir .rep-txt { display: none; }
+  .repetir button { min-width: 30px; height: 34px; font-size: 11px; padding: 0 2px; }
   .repetir .veces-num { min-width: 38px; font-size: 17px; }
 }

@@ -59,6 +59,7 @@ export function refrescar() {
 /* ---------- Cliente ---------- */
 export function dibujarCliente(resultado) {
   const n = S.nivel, c = $('cliente');
+  c.className = 'cliente' + (n.libre ? ' libre' : '');
   const p = PERSONAJES[n.cliente];
   let html = '<div class="cliente-quien">' + svgPersonaje(p) + '<div><div class="cliente-nombre">' + p.nombre + '</div><div class="cliente-rol">' + p.rol + '</div></div></div>';
   html += '<p class="cliente-pide">' + n.pide + '</p>';
@@ -100,7 +101,7 @@ export function dibujarPanel() {
   lista.forEach(id => {
     const e = ESTACIONES[id];
     const b = el('button', 'estacion' + (e.tipo === 'maquina' ? ' maquina' : ''),
-      '<span class="ico">' + icono(id) + '</span><span class="nom">' + e.nombre + '</span><span class="min">' + T.minutos(e.minutos) + '</span>' +
+      '<span class="ico">' + icono(id) + '</span><span class="nom' + (e.nombre.length > 9 ? ' largo' : '') + '">' + e.nombre + '</span><span class="min">' + T.minutos(e.minutos) + '</span>' +
       (e.tipo === 'maquina' ? '<span class="engranaje">' + icono('engranaje') + '</span>' : ''));
     b.dataset.estacion = id;
     b.setAttribute('aria-pressed', String(S.elegida === id));
@@ -125,10 +126,10 @@ export { dibujarEstrellasBarra };
 function dibujarRepetir() {
   const r = $('repetir');
   if (r.hidden) return;
-  r.innerHTML = '<span class="ico">' + icono('repetir') + '</span><span>' + T.repetir + '</span>' +
+  r.innerHTML = '<span class="ico">' + icono('repetir') + '</span><span class="rep-txt">' + T.repetir + '</span>' +
     '<button data-veces="-10">−10</button><button data-veces="-1">−1</button>' +
     '<span class="veces-num" aria-live="polite">' + S.programa.repetir + '</span>' +
-    '<button data-veces="1">+1</button><button data-veces="10">+10</button><span>' + T.veces + '</span>';
+    '<button data-veces="1">+1</button><button data-veces="10">+10</button><span class="rep-txt">' + T.veces + '</span>';
 }
 
 export function alternarRepetir() {

@@ -64,7 +64,7 @@ export function dibujarCasilleros() {
     const id = cintas[s.cinta][s.i];
     const fija = !!defs[s.cinta].fija;
     const est = id && ESTACIONES[id];
-    const b = el('button', 'casillero' + (est ? ' lleno' : '') + (est && est.tipo === 'maquina' ? ' maquina' : '') + (fija ? ' fija' : '') + (s.h < 66 ? ' chico' : ''));
+    const b = el('button', 'casillero' + (est ? ' lleno' : '') + (est && est.tipo === 'maquina' ? ' maquina' : '') + (fija ? ' fija' : '') + (s.h < 66 ? ' chico' : '') + (s.w < 104 ? ' angosto' : ''));
     b.dataset.c = s.cinta; b.dataset.i = s.i;
     b.style.left = s.x + 'px'; b.style.top = s.y + 'px'; b.style.width = s.w + 'px'; b.style.height = s.h + 'px';
     if (est) {

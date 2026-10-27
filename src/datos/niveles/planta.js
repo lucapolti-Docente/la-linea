@@ -4,7 +4,7 @@ export const PLANTA = [
     id: 'planta-sensor',
     nombre: 'Tablas rajadas',
     cliente: 'ramiro',
-    pide: '12 mesas sanas, sin rajaduras',
+    pide: 'Solo mesas sanas: nada de rajaduras',
     consigna: 'Algunas tablas vienen rajadas. El sensor las manda a reciclar.',
     aprende: 'La máquina decide según lo que sensa: si está rajada, va a reciclar.',
     entra: 'tabla',

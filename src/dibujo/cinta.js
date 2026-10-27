@@ -17,7 +17,7 @@ export function geometria(W, H, porCinta, extraArriba) {
   let entrada, salida, escala, ps;
 
   if (!vertical) {
-    const m = 8, eW = lim(W * 0.08, 48, 84), g = nc > 1 ? 28 : 0;
+    const m = 8, eW = lim(W * 0.1, 56, 110), g = nc > 1 ? 28 : 0;
     const sw = Math.min(180, (W - 2 * m - 2 * eW - g * (nc - 1)) / ns);
     ps = Math.min(sw * 0.72, 110, H * 0.26);
     escala = ps / 100;
@@ -38,7 +38,7 @@ export function geometria(W, H, porCinta, extraArriba) {
   } else {
     const m = 6, eH = lim(H * 0.07, 34, 56), g = nc > 1 ? 22 : 0;
     const sh = Math.min(84, (H - 2 * m - 2 * eH - g * (nc - 1) - extraArriba) / ns);
-    ps = Math.min(sh * 0.92, W * 0.3, 84);
+    ps = Math.min(sh * 0.92, W * 0.26, 84);
     escala = ps / 100;
     const bx = m + ps / 2 + 6;
     let y = m + eH + extraArriba + Math.max(0, (H - 2 * m - 2 * eH - g * (nc - 1) - extraArriba - sh * ns) / 2);

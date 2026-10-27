@@ -54,6 +54,7 @@ export function ventanaResultado(r) {
   const t = Math.round(r.prod.tiempo.total);
   if (n.meta) lista.push('<li class="tiempo">' + (r.aTiempo ? T.aTiempo(t, n.meta) : T.tarde(t, n.meta)) + '</li>');
   else lista.push('<li class="tiempo">' + T.minutos(t) + ' · ' + T.piezas(r.prod.entregadas, r.prod.n) + '</li>');
+  if (r.defectos.length && !n.libre) html += '<p><b>' + T.conDefectos + '</b></p>';
   if (lista.length) html += '<ul class="lista-explica">' + lista.join('') + '</ul>';
   if (r.estrellas === 3 && n.aprende) html += '<p class="aprende">' + svgPersonaje(PERSONAJES[ENCARGADA]) + '<span>' + n.aprende + '</span></p>';
 

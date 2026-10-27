@@ -77,7 +77,7 @@ function banco(p) {
 
 /* Envase de plástico: en el molde, caliente, deformado, lleno, tapado, con etiqueta. */
 function envase(p) {
-  if (!p.moldeado) {
+  if (!p.moldeado && !p.envase) {
     if (p.caliente) return `<path d="M-30 0 q-4 -24 14 -26 q10 -12 22 -2 q16 2 14 28 Z" fill="${C.caliente}" ${L}/><path d="M-12 -18 q4 -4 8 0 M6 -14 q4 -4 8 0" fill="none" stroke="#FFD23F" stroke-width="2.5"/>`;
     let s = '';
     const granos = [[-24, -6], [-12, -6], [0, -6], [12, -6], [24, -6], [-18, -16], [-6, -16], [6, -16], [18, -16], [-12, -26], [0, -26], [12, -26], [-6, -35], [6, -35]];
