@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Línea · Para docentes</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='6' y='56' width='88' height='22' rx='11' fill='%233B4252'/%3E%3Crect x='30' y='26' width='40' height='28' rx='4' fill='%23FF7A1A'/%3E%3Ccircle cx='22' cy='86' r='7' fill='%237A8696'/%3E%3Ccircle cx='50' cy='86' r='7' fill='%237A8696'/%3E%3Ccircle cx='78' cy='86' r='7' fill='%237A8696'/%3E%3C/svg%3E">
 <style>
 /* Página independiente: sin fuentes ni archivos de internet (anda desde el pendrive). La misma página genera guia-docente.pdf. */
 :root { --tinta: #1E2430; --fondo: #FFF8EC; --papel: #FFFFFF; --linea: #E2D6C2; --naranja: #FF7A1A; --naranja-osc: #C9550A;
@@ -77,7 +78,7 @@ footer { margin-top: 44px; font-size: 15px; opacity: .75; }
   <p class="sub">Del taller a la fábrica: los chicos ordenan las estaciones de una línea de producción y producen lo que pide el cliente. Para segundo ciclo (4.º a 7.º).</p>
 
   <div class="botones no-imprimir">
-    <a class="btn prin" href="../index.html">
+    <a class="btn prin" id="abrirJuego" href="../index.html">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8 L40 24 L14 40 Z" fill="#fff"/></svg>
       <span>ABRIR EL JUEGO<small>En el navegador, sin instalar nada</small></span></a>
     <a class="btn" href="guia-docente.pdf" download>
@@ -215,5 +216,9 @@ footer { margin-top: 44px; font-size: 15px; opacity: .75; }
 
   <footer>La Línea es un juego de Luca Polti para sus clases de Tecnología. Personajes y dibujos originales. Funciona sin internet y no guarda datos personales.</footer>
 </main>
+<script>
+/* En el pendrive el juego es la-linea.html, al lado de esta carpeta. */
+if (location.protocol === 'file:') document.getElementById('abrirJuego').href = '../la-linea.html';
+</script>
 </body>
 </html>
