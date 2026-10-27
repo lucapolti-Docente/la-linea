@@ -5,4 +5,4 @@ export { puestos, recorrer, producir } from './linea.js';
 export { reloj } from './reloj.js';
 export { azar, rajadas } from './semilla.js';
 export { evaluar } from './evaluar.js';
-export { cintasDe, cantidad, configurar, jugar } from './nivel.js';
+export { cintasDe, cantidad, configurar, programas, jugar } from './nivel.js';
