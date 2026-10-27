@@ -1,0 +1,21 @@
+{
+  "name": "la-linea",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Juego para 4.º a 7.º grado: ordenar las estaciones de una línea de producción.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:pendrive": "vite build --mode pendrive",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "soluciones": "node herramientas/soluciones.js"
+  },
+  "devDependencies": {
+    "vite": "8.3.4",
+    "vite-plugin-singlefile": "2.3.3",
+    "vitest": "5.0.3"
+  }
+}
