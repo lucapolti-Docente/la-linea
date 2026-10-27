@@ -67,11 +67,27 @@ export function ventanaResultado(r) {
   }
   html += '</div>';
   if (!n.libre && ultimo) html = '<p class="aprende">' + T.terminaste + '</p>' + html;
-  abrir(html, 'resultado');
+  const v = abrir(html, 'resultado');
+  if (r.estrellas === 3 && !n.libre) v.appendChild(confeti());
   if (r.estrellas >= 1 && !n.libre) {
     snd('gana');
     for (let i = 1; i <= r.estrellas; i++) setTimeout(() => snd('estrella', i), 300 + i * 250);
   }
+}
+
+/* Papelitos de festejo (solo con ⭐⭐⭐). Con movimiento reducido no se muestran. */
+function confeti() {
+  const c = el('div', 'confeti');
+  const colores = ['#FF7A1A', '#FFC233', '#2A9D8F', '#1F6FD1', '#E84F9A', '#2F9E5B'];
+  for (let i = 0; i < 28; i++) {
+    const p = el('i');
+    p.style.left = (i * 37) % 100 + '%';
+    p.style.background = colores[i % colores.length];
+    p.style.animationDelay = (i % 7) * 0.12 + 's';
+    p.style.animationDuration = 1.6 + (i % 5) * 0.25 + 's';
+    c.appendChild(p);
+  }
+  return c;
 }
 
 /* ---------- Menú ---------- */

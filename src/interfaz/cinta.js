@@ -111,15 +111,29 @@ export function limpiarPiezas() {
   document.querySelectorAll('.casillero').forEach(b => b.classList.remove('trabajando', 'mal', 'peor'));
 }
 
-/* Un efecto suelto (humo, chispas, gotas) encima de un punto. */
+/* Un efecto suelto encima de un punto: humo de error, o lo que larga cada trabajo (aserrín, chispas…). */
+const COLOR_EFECTO = {
+  humo: '#7A8696', fuego: '#FF7A1A', agua: '#E84F9A', chispas: '#FFD23F', frio: '#8FD3FF',
+  pintura: '#2A9D8F', aserrin: '#D9A066', polvo: '#E9C46A'
+};
 export function efecto(punto, tipo) {
   const g = document.createElementNS(NS, 'g');
   const e = S.geo.escala;
-  const color = tipo === 'agua' ? '#E84F9A' : tipo === 'fuego' ? '#FF7A1A' : '#7A8696';
+  const color = COLOR_EFECTO[tipo] || COLOR_EFECTO.humo;
+  const chico = tipo !== 'humo' && tipo !== 'fuego';
   let s = '';
-  for (let i = 0; i < 5; i++) s += `<circle cx="${(i - 2) * 16}" cy="${-60 - (i % 2) * 18}" r="${10 + (i % 3) * 4}" fill="${color}" opacity="0.8"/>`;
+  for (let i = 0; i < (chico ? 8 : 5); i++) {
+    const r = chico ? 4 + (i % 3) * 2 : 10 + (i % 3) * 4;
+    s += `<circle cx="${(i - 3.5) * (chico ? 11 : 16)}" cy="${-50 - (i % 3) * 14}" r="${r}" fill="${color}" stroke="#1E2430" stroke-width="${chico ? 1.5 : 0}" opacity="0.9"/>`;
+  }
   g.innerHTML = '<g class="efecto-humo">' + s + '</g>';
   g.setAttribute('transform', 'translate(' + punto.px + ' ' + punto.py + ') scale(' + e + ')');
   $('capaEfectos').appendChild(g);
   setTimeout(() => g.remove(), 1200);
 }
+
+/* Qué efecto larga cada sonido de estación mientras trabaja. */
+export const EFECTO_TRABAJO = {
+  sierra: 'aserrin', taladro: 'aserrin', lija: 'polvo', pintar: 'pintura', soldar: 'chispas',
+  horno: 'fuego', frio: 'frio', llenar: 'agua', cola: 'polvo'
+};

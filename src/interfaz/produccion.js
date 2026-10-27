@@ -2,7 +2,7 @@
    entrar → una acción por estación (tipo 'paso') → salir → resto del lote → evaluar.
    Producir corre todo lo que falta; Paso corre hasta terminar la próxima estación. */
 import { S, $, snd, esperar, sacudir, factorTiempo, guardar } from './estado.js';
-import { slotDe, botonDe, nuevaPieza, redibujarPieza, ubicarPieza, limpiarPiezas, efecto, puntoReciclaje, cintasEnPantalla } from './cinta.js';
+import { slotDe, botonDe, nuevaPieza, redibujarPieza, ubicarPieza, limpiarPiezas, efecto, EFECTO_TRABAJO, puntoReciclaje, cintasEnPantalla } from './cinta.js';
 import { decir, dibujarTablero, marcarItem, cortar, refrescar, dibujarEstrellasBarra, dibujarCliente } from './juego.js';
 import { ventanaResultado } from './ventanas.js';
 import { jugar, puestos, cantidad } from '../motor/index.js';
@@ -63,6 +63,7 @@ function armarCola(r) {
       const bs = botonesDe(paso.puesto);
       bs.forEach(b => b.classList.add('trabajando'));
       snd(est.sonido);
+      if (EFECTO_TRABAJO[est.sonido]) efecto(destino, EFECTO_TRABAJO[est.sonido]);
       if (!paso.puesto.prueba) decir(T.trabajando(est.nombre));
       await esperar(650);
       if (corrida !== S.corrida) return false;
