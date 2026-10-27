@@ -86,10 +86,11 @@ describe('Catálogo', () => {
   const probados = new Set(CASOS.map(c => c[0] + ':' + c[3]));
   const ids = Object.keys(ESTACIONES);
 
-  it('cada estación tiene emoji, nombre corto, tipo y minutos', () => {
+  it('cada estación tiene grupo, sonido, nombre corto, tipo y minutos', () => {
     for (const id of ids) {
       const e = ESTACIONES[id];
-      expect(e.emoji, id).toBeTruthy();
+      expect(e.grupo, id).toBeTruthy();
+      expect(e.sonido, id).toBeTruthy();
       expect(e.nombre.length, id).toBeLessThanOrEqual(14);
       expect(['mano', 'maquina'], id).toContain(e.tipo);
       expect(e.minutos, id).toBeGreaterThanOrEqual(e.prueba ? 0 : 1);

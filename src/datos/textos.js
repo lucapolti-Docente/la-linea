@@ -42,16 +42,16 @@ export const DEFECTOS = {
   rajada: ['Salieron mesas con la tabla rajada.', 'Un sensor puede separar las tablas rajadas.']
 };
 
-/* Lo que pide el cliente: cada propiedad del modelo con su nombre corto y su ícono. */
+/* Lo que pide el cliente: cada propiedad del modelo con su ícono (de src/dibujo/iconos.js) y su nombre corto. */
 export const ITEMS = {
-  cortada: ['🪚', 'CORTADA'],
-  lisa: ['✋', 'LISA'],
-  agujero: ['⭕', 'CON AGUJERO'],
-  pintada: ['🎨', 'PINTADA'],
-  unida: ['🦵', 'PATAS FIRMES'],
-  moldeado: ['🫙', 'CON FORMA'],
-  envase: ['🧴', 'ENVASE'],
-  lleno: ['💧', 'LLENO'],
-  tapado: ['🔴', 'TAPADO'],
-  etiquetada: ['🏷️', 'CON ETIQUETA']
+  cortada: ['serrucho', 'CORTADA'],
+  lisa: ['lija', 'LISA'],
+  agujero: ['taladro', 'CON AGUJERO'],
+  pintada: ['pincel', 'PINTADA'],
+  unida: ['union', 'PATAS FIRMES'],
+  moldeado: ['molde', 'CON FORMA'],
+  envase: ['desmoldar', 'ENVASE'],
+  lleno: ['llenar', 'LLENO'],
+  tapado: ['tapar', 'TAPADO'],
+  etiquetada: ['etiquetar', 'CON ETIQUETA']
 };
