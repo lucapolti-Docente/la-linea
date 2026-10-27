@@ -55,3 +55,87 @@ export const ITEMS = {
   tapado: ['tapar', 'TAPADO'],
   etiquetada: ['etiquetar', 'CON ETIQUETA']
 };
+
+/* Pantalla de inicio y modos. */
+export const MODOS_TXT = {
+  taller: { nombre: 'Taller', grado: '4.º grado', descripcion: 'Una pieza por vez, con herramientas de mano.' },
+  fabrica: { nombre: 'Fábrica', grado: '5.º grado', descripcion: 'Muchas piezas: máquinas y Repetir.' },
+  planta: { nombre: 'Planta', grado: '6.º y 7.º grado', descripcion: 'Sensores, plástico y dos fábricas.' },
+  libre: { nombre: 'Libre', grado: 'Todos', descripcion: 'Todas las estaciones, sin pedido.' }
+};
+
+/* Nombres de las pestañas del panel en el modo libre. */
+export const GRUPOS = { madera: 'Madera', maquinas: 'Máquinas', plastico: 'Plástico', envases: 'Envases' };
+
+/* Nombres de los materiales para elegir en el modo libre. */
+export const MATERIALES_TXT = { tabla: 'Tabla', kit: 'Mesa en partes', canos: 'Caños', granos: 'Plástico', envase: 'Envase' };
+
+/* Todo lo demás que se lee en pantalla. Las funciones arman frases con números. */
+export const T = {
+  titulo: 'La Línea',
+  lema: 'Del taller a la fábrica: ordená las estaciones y producí lo que pide el cliente.',
+  elegiModo: '¿Dónde trabajamos hoy?',
+  elegiNivel: 'Elegí un pedido',
+  nivel: (i, total) => 'Pedido ' + i + ' de ' + total,
+  producir: 'Producir',
+  paso: 'Paso',
+  vaciar: 'Vaciar',
+  inicio: 'Inicio',
+  menu: 'Menú',
+  pide: 'Pide',
+  estaciones: 'Estaciones',
+  material: 'Material',
+  casillero: n => 'Casillero ' + n,
+  vacio: 'vacío',
+  fija: 'Ya armada',
+  minutos: m => (Math.round(m * 10) / 10) + ' min',
+  meta: m => 'Meta: ' + m + ' min',
+  aMano: 'A mano',
+  tuLinea: 'Tu línea',
+  piezas: (h, n) => h + ' de ' + n,
+  repetir: 'Repetir',
+  veces: 'veces',
+  sacarRepetir: 'Sacar Repetir',
+  ponerRepetir: 'Envolver con Repetir',
+  lenta: 'La más lenta',
+  lote: n => '× ' + n,
+  // mensajes de la encargada
+  elegiEstacion: 'Tocá una estación y después un casillero. También podés arrastrarla.',
+  elegida: nombre => nombre + ': ahora tocá un casillero.',
+  puesta: (nombre, n) => nombre + ' en el casillero ' + n + '.',
+  sacada: n => 'Vaciaste el casillero ' + n + '.',
+  vacia: 'La cinta está vacía. Poné al menos una estación.',
+  trabajando: nombre => nombre + '…',
+  cambio: (nombre, que) => nombre + ': ahora está ' + que + '.',
+  sinCambio: nombre => nombre + ': no cambió nada.',
+  reciclaje: 'Rajada: ¡a la caja de reciclaje!',
+  prueba: 'Prueba de peso…',
+  pruebaBien: '¡Aguantó el peso!',
+  produciendo: 'La cinta se llena de piezas…',
+  faltan: n => 'Faltan ' + n + ' para el pedido. Mirá el número de Repetir.',
+  sobran: n => 'Sobran ' + n + '. El pedido es justo: mirá el número de Repetir.',
+  noIgual: 'Salió distinta a lo que pidió el cliente. Mirá las tildes.',
+  // ventana de resultado
+  resultado: ['¡A probar otra vez!', '¡Salió igual al modelo!', '¡Y sin defectos!', '¡Perfecta y a tiempo!'],
+  conDefectos: 'Salió, pero con defectos:',
+  tarde: (t, meta) => 'Tardó ' + t + ' min y la meta era ' + meta + '. ¿Hay algo más rápido?',
+  aTiempo: (t, meta) => 'Tardó ' + t + ' min. Meta: ' + meta + '. ¡Llegaste!',
+  libreSalio: 'Así salió tu pieza.',
+  otraVez: 'Otra vez',
+  siguiente: 'Siguiente',
+  elegirOtro: 'Elegir otro',
+  terminaste: '¡Terminaste todos los pedidos de este modo!',
+  // menú
+  menuInicio: 'Pantalla de inicio',
+  menuNiveles: 'Pedidos',
+  menuSonido: 'Sonido',
+  menuMayus: 'Todo en mayúsculas',
+  menuDocentes: 'Para docentes',
+  menuBorrar: 'Borrar estrellas',
+  borrarSeguro: '¿Borrar todas las estrellas de esta compu?',
+  si: 'Sí, borrar',
+  no: 'No',
+  cerrar: 'Cerrar',
+  silenciar: 'Silenciar',
+  activarSonido: 'Activar sonido'
+};
