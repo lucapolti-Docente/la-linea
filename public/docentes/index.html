@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Línea · Para docentes</title>
+<style>
+/* Página independiente: sin fuentes ni archivos de internet (anda desde el pendrive). La misma página genera guia-docente.pdf. */
+:root { --tinta: #1E2430; --fondo: #FFF8EC; --papel: #FFFFFF; --linea: #E2D6C2; --naranja: #FF7A1A; --naranja-osc: #C9550A;
+  --taller: #E4572E; --fabrica: #1F6FD1; --planta: #7A3FC2; --libre: #2F9E5B; --suave: #F4EEE3; --amarillo: #FFF4CC; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fondo); color: var(--tinta); font-family: "Trebuchet MS", "Segoe UI", Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; font-size: 18px; line-height: 1.55; padding: 0 16px; }
+main { max-width: 900px; margin: 0 auto; padding: 28px 0 60px; }
+h1, h2, h3 { line-height: 1.15; margin: 0 0 10px; }
+h1 { font-size: 40px; }
+h2 { font-size: 28px; margin-top: 38px; padding-top: 6px; border-top: 4px solid var(--naranja); display: inline-block; }
+h3 { font-size: 21px; margin-top: 20px; }
+p { margin: 0 0 12px; }
+.sub { font-size: 20px; opacity: .85; margin-bottom: 22px; }
+a { color: var(--fabrica); }
+.botones { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 10px; }
+.btn { display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 22px; border-radius: 14px; border: 3px solid var(--tinta);
+  font: inherit; font-weight: bold; font-size: 20px; text-decoration: none; color: var(--tinta); background: var(--papel); cursor: pointer; box-shadow: 0 4px 0 var(--tinta); }
+.btn.prin { background: var(--naranja); color: #fff; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.btn:focus-visible { outline: 4px solid var(--fabrica); outline-offset: 3px; }
+.btn small { display: block; font-weight: normal; font-size: 15px; }
+.btn svg { width: 34px; height: 34px; flex: none; }
+.card { background: var(--papel); border: 2px solid var(--linea); border-radius: 16px; padding: 16px 20px; margin: 12px 0; }
+.card.nota { background: var(--amarillo); border-color: #E8C95A; }
+ul, ol { margin: 0 0 8px; padding-left: 1.3em; }
+li { margin: 5px 0; }
+.tabla { width: 100%; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--papel); font-size: 16px; }
+th, td { border: 2px solid var(--linea); padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: var(--suave); }
+.modos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.modo { border-radius: 16px; padding: 14px 18px; border: 3px solid var(--tinta); background: var(--papel); }
+.modo h3 { margin-top: 0; }
+.etq { display: inline-block; font-weight: bold; font-size: 14px; padding: 2px 10px; border-radius: 99px; color: #fff; margin-bottom: 6px; }
+.taller { border-color: var(--taller); } .taller .etq { background: var(--taller); }
+.fabrica { border-color: var(--fabrica); } .fabrica .etq { background: var(--fabrica); }
+.planta { border-color: var(--planta); } .planta .etq { background: var(--planta); }
+.libre { border-color: var(--libre); } .libre .etq { background: var(--libre); }
+.cita { font-style: italic; }
+.ficha { border: 3px dashed var(--tinta); border-radius: 16px; padding: 16px 20px; background: var(--papel); margin-top: 16px; }
+.ficha table td { height: 38px; }
+.cinta { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.cinta span { min-width: 120px; height: 60px; border: 3px dashed var(--tinta); border-radius: 10px; display: flex; align-items: flex-start; padding: 4px 8px; font-weight: bold; }
+.ficha p, td { overflow-wrap: anywhere; }
+footer { margin-top: 44px; font-size: 15px; opacity: .75; }
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  h1 { font-size: 30px; }
+  h2 { font-size: 24px; }
+  .modos { grid-template-columns: 1fr; }
+  .btn { width: 100%; }
+  table { font-size: 14px; }
+  th, td { padding: 6px; }
+  .cinta span { min-width: 0; flex: 1 1 28%; }
+}
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: #fff; font-size: 11.5pt; padding: 0; }
+  .no-imprimir { display: none !important; }
+  main { padding: 0; max-width: none; }
+  h1 { font-size: 26pt; }
+  h2 { font-size: 17pt; margin-top: 18pt; }
+  .ficha { break-before: page; }
+  .card, .modo, table, .ficha { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>La Línea · Para docentes</h1>
+  <p class="sub">Del taller a la fábrica: los chicos ordenan las estaciones de una línea de producción y producen lo que pide el cliente. Para segundo ciclo (4.º a 7.º).</p>
+
+  <div class="botones no-imprimir">
+    <a class="btn prin" href="../index.html">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8 L40 24 L14 40 Z" fill="#fff"/></svg>
+      <span>ABRIR EL JUEGO<small>En el navegador, sin instalar nada</small></span></a>
+    <a class="btn" href="guia-docente.pdf" download>
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 v24 M14 20 l10 10 l10 -10 M8 40 h32" fill="none" stroke="#1E2430" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>GUÍA EN PDF<small>Para imprimir o compartir</small></span></a>
+    <button class="btn" type="button" onclick="window.print()">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="6" width="24" height="12" fill="none" stroke="#1E2430" stroke-width="4"/><rect x="6" y="18" width="36" height="16" rx="3" fill="none" stroke="#1E2430" stroke-width="4"/><rect x="14" y="28" width="20" height="14" fill="#fff" stroke="#1E2430" stroke-width="4"/></svg>
+      <span>IMPRIMIR<small>Esta guía y la ficha</small></span></a>
+  </div>
+
+  <h2>Qué hacen los chicos</h2>
+  <p>Programan el <b>orden de las transformaciones</b> sobre una pieza que viaja por una cinta: ubican estaciones (cortar, lijar, pintar, soldar, calentar, llenar…) en los casilleros, aprietan <b>Producir</b> (o <b>Paso</b>, para ver una estación por vez) y miran cómo cambia la pieza. Al final, la pieza se compara con el modelo del cliente, ítem por ítem, con tildes.</p>
+  <p>A diferencia de otros juegos de programación, acá nada camina por una cuadrícula: el programa es la secuencia de la línea, y el bucle <b>produce piezas</b> que se ven en un contador y en un reloj.</p>
+
+  <div class="card">
+    <b>Lo que aprenden, como lo diría un chico</b>
+    <ol>
+      <li>"El orden importa: si tapo antes de llenar, se derrama todo. Y hay órdenes que andan pero salen peor."</li>
+      <li>"Cada material tiene su herramienta: el metal no se pega, se suelda."</li>
+      <li>"Las máquinas y el Repetir hacen lo mismo que yo, pero 100 veces y más rápido. Así funciona una fábrica de verdad."</li>
+    </ol>
+  </div>
+
+  <h2>Cómo se juega</h2>
+  <ul>
+    <li><b>A la izquierda</b> (arriba en el celular), la tarjeta del cliente: qué pide, el dibujo de la pieza modelo y la lista de lo que tiene que tener.</li>
+    <li><b>Al medio</b>, la cinta con casilleros vacíos. <b>A la derecha</b>, el panel de estaciones con el tiempo de cada una.</li>
+    <li><b>Para ubicar una estación</b>: arrastrarla, o tocarla y después tocar el casillero (ideal para touchpads gastados y celulares). Con teclado: Tab hasta la estación, Enter, y Enter en el casillero. Suprimir la saca.</li>
+    <li><b>Abajo</b>, la encargada (Nora) habla en una línea, el reloj de producción y el contador de piezas.</li>
+  </ul>
+  <h3>Estrellas</h3>
+  <ul>
+    <li>⭐ La pieza sale igual al modelo (y la cantidad pedida, si hay pedido).</li>
+    <li>⭐⭐ Además, sin defectos de calidad.</li>
+    <li>⭐⭐⭐ Además, dentro del tiempo meta.</li>
+  </ul>
+  <h3>Dos tipos de error</h3>
+  <ul>
+    <li><b>No funciona</b>: la pieza no sale. Por ejemplo, soldar madera la quema; el pegamento en metal se suelta en la prueba de peso; tapar antes de llenar derrama el shampoo. La estación donde falló se marca en rojo y la encargada hace una pregunta para seguir.</li>
+    <li><b>Sale peor</b>: la pieza sale, pero con un defecto y menos estrellas. Por ejemplo, pintar antes de agujerear salta la pintura; lijar después de pintar la raspa. La ventana explica por qué conviene pintar al final.</li>
+  </ul>
+  <p>Nunca dice "perdiste": siempre se puede probar de nuevo, y todos los pedidos se pueden saltar desde el menú ☰.</p>
+  <h3>El reloj</h3>
+  <p>Cada estación tarda unos <b>minutos de fábrica</b> (simulados, no reales). Las herramientas de mano tardan mucho y las máquinas poco. Para muchas piezas, la cinta trabaja llena: el tiempo es <b>primera pieza + (cantidad − 1) × la estación más lenta</b>. Dos estaciones iguales seguidas trabajan juntas y se reparten las piezas.</p>
+
+  <h2>Modos y pedidos</h2>
+  <p>Cada grado entra por su modo. Una clase típica de 40 a 60 minutos juega un modo.</p>
+  <div class="modos">
+    <div class="modo taller"><span class="etq">4.º grado</span><h3>Taller (pedidos 1 a 4)</h3>
+      <ol>
+        <li>Una mesa: cortar, lijar y pintar. Cada paso transforma la pieza.</li>
+        <li>Mesa con agujero para la sombrilla: hay órdenes que andan pero salen peor; pintar va al final.</li>
+        <li>Mesa con patas: las partes se unen (clavos o cola). Prueba de peso al final.</li>
+        <li>Banco de metal: el material define la herramienta; el metal se suelda.</li>
+      </ol></div>
+    <div class="modo fabrica"><span class="etq">5.º grado</span><h3>Fábrica (pedidos 5 y 6)</h3>
+      <ol start="5">
+        <li>30 mesas: a mano, el reloj no llega a la meta. Aparecen la sierra de banco, la lijadora y la pintura a máquina, con una barra que compara "a mano" contra "tu línea".</li>
+        <li>100 mesas: se arma la cinta de UNA mesa y se la envuelve con <b>Repetir 100 veces</b>.</li>
+      </ol></div>
+    <div class="modo planta"><span class="etq">6.º y 7.º grado</span><h3>Planta (pedidos 7 a 10)</h3>
+      <ol start="7">
+        <li>Tablas rajadas: un sensor de calidad manda las rajadas a reciclar (siempre son las mismas, no es azar).</li>
+        <li>Fábrica de envases: plástico → calentar → moldear → enfriar → desmoldar. El plástico frío no se moldea.</li>
+        <li>Dos fábricas en serie: el envase entra a la fábrica de shampoo (llenar, tapar, etiquetar).</li>
+        <li>100 shampoos: la estación más lenta se marca en rojo y marca el ritmo. Se puede duplicar o cambiar por una máquina.</li>
+      </ol></div>
+    <div class="modo libre"><span class="etq">Todos</span><h3>Libre</h3>
+      <p>Todas las estaciones y todos los materiales, sin pedido ni meta. Se ve la pieza que sale y el reloj. Sirve para explorar, para inventar desafíos entre compañeros o para que el docente muestre un ejemplo en el proyector.</p></div>
+  </div>
+
+  <h2>Diseño Curricular (CABA)</h2>
+  <p>Tecnologías, Diseño y Programación.</p>
+  <div class="tabla"><table>
+    <tr><th>Grado</th><th>Eje y contenido</th><th>Indicador / dónde se ve</th></tr>
+    <tr><td><b>4.º</b></td><td>Comprensión, representación y diseño de los procesos tecnológicos · <span class="cita">"Producción de instructivos y programas. Relación entre el pensamiento algorítmico (secuencial) y el pensamiento computacional."</span></td>
+      <td><span class="cita">"Prevé y pone a prueba una secuencia de instrucciones posibles para solucionar un problema y la representa a través de, al menos, un lenguaje."</span> Se ve cuando ordena las estaciones, aprieta Producir y corrige.</td></tr>
+    <tr><td><b>5.º</b></td><td>Mismo eje · <span class="cita">"Tecnificación como proceso de delegación de funciones en artefactos y aumento en complejidad"</span> y <span class="cita">"Aproximación al concepto de productividad"</span>. Diseño y programación · <span class="cita">"Implementa estructuras de control, como bucles y condicionales, en sus programas."</span></td>
+      <td><span class="cita">"Observa y describe cómo las tecnificaciones elevan la productividad de las tareas."</span> Se ve cuando compara el reloj a mano contra el reloj con máquinas y usa Repetir para las 100 mesas.</td></tr>
+    <tr><td><b>6.º</b></td><td>Objetivo: <span class="cita">"Representar procesos sobre la base de las propiedades de los materiales, las herramientas y las operaciones necesarias, a través de acciones de medición y control."</span> Robótica · <span class="cita">"Problemas de control de procesos reactivos a variables o parámetros sensados."</span> Diseño y programación · <span class="cita">"Algoritmos no lineales (condicionales)."</span></td>
+      <td>Se ve cuando elige la unión según el material y programa el sensor de calidad.</td></tr>
+    <tr><td><b>7.º</b></td><td>Reflexión · <span class="cita">"Procesos industriales: del sistema máquina-producto a sistemas industriales con nuevas tecnologías interconectadas…"</span> y <span class="cita">"Efectos resultantes como consecuencia del empleo de operadores de control en la realización de las tareas: incremento de la productividad y de la regularidad de la producción, simplificación del 'saber experto'."</span> Comprensión · <span class="cita">"Redes de distribución de personas y bienes (transporte, cadena de suministros…)"</span>.</td>
+      <td>Se ve cuando encadena dos fábricas y encuentra la estación más lenta.</td></tr>
+  </table></div>
+  <p>Articulaciones posibles: Educación Ambiental (reciclaje de las tablas rajadas, materiales) y ESI (los personajes muestran oficios sin estereotipos de género: una encargada de fábrica, un cocinero, un peluquero, una entrenadora).</p>
+
+  <h2>Antes de jugar: actividad sin pantalla</h2>
+  <div class="card">
+    <p><b>La línea de tarjetas.</b> La clase hace 10 tarjetas decoradas (por ejemplo: recortar, pegar una figura y pintar el borde).</p>
+    <ol>
+      <li><b>Primera vuelta:</b> cada chico hace una tarjeta entera, solo. Se cronometra cuánto tarda el grupo en terminar las 10.</li>
+      <li><b>Segunda vuelta:</b> se arman puestos en fila (cortar, pegar, pintar). Cada chico hace una sola tarea y pasa la tarjeta. Se cronometra otra vez.</li>
+      <li>Se comparan los tiempos en el pizarrón. ¿Qué puesto tenía tarjetas esperando? Ese es el más lento.</li>
+    </ol>
+    <p>Es la "división de tareas en forma intencional para mejorar la productividad" de 5.º. En 4.º alcanza con discutir el orden: ¿qué pasa si pintamos antes de recortar?</p>
+  </div>
+
+  <h2>Para el cierre</h2>
+  <ul>
+    <li>¿Qué orden no funcionó, y cuál funcionó pero salió peor?</li>
+    <li>¿Por qué la fábrica usa máquinas y Repetir?</li>
+    <li>¿Qué trabajos cambian cuando entra una máquina?</li>
+  </ul>
+
+  <h2>Consejos de uso</h2>
+  <ul>
+    <li>Anda en el navegador de cualquier compu o celular, sin instalar nada y sin cuentas. Las estrellas se guardan en esa compu (se borran desde el menú ☰).</li>
+    <li><b>Sin internet:</b> copiá al pendrive el archivo <code>la-linea.html</code> junto con esta carpeta <code>docentes</code>, y abrilo con doble clic.</li>
+    <li>El botón <b>Paso</b> es el mejor aliado para depurar en voz alta: "¿qué le pasa a la pieza en esta estación?".</li>
+    <li>Con el proyector, el modo Libre sirve para mostrar un error a propósito y discutirlo entre todos.</li>
+  </ul>
+
+  <section class="ficha">
+    <h2 style="margin-top:0">Ficha para los chicos</h2>
+    <p>Nombre: ______________________ &nbsp; Grado: ______ &nbsp; Fecha: __________</p>
+    <h3>1. Dibujá tu línea</h3>
+    <p>Escribí o dibujá la estación de cada casillero, en orden.</p>
+    <div class="cinta"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+    <h3>2. Errores que encontré</h3>
+    <table>
+      <tr><th style="width:45%">Orden que probé</th><th>¿No funcionó o salió peor? ¿Por qué?</th></tr>
+      <tr><td></td><td></td></tr>
+      <tr><td></td><td></td></tr>
+    </table>
+    <h3>3. El reloj</h3>
+    <table>
+      <tr><th>Línea</th><th>Minutos para 30 mesas</th></tr>
+      <tr><td>A mano</td><td></td></tr>
+      <tr><td>Con máquinas</td><td></td></tr>
+    </table>
+    <h3>4. Pensá</h3>
+    <p>¿Qué trabajo cambia cuando entra una máquina? ___________________________________________</p>
+    <p>___________________________________________________________________________________</p>
+  </section>
+
+  <footer>La Línea es un juego de Luca Polti para sus clases de Tecnología. Personajes y dibujos originales. Funciona sin internet y no guarda datos personales.</footer>
+</main>
+</body>
+</html>

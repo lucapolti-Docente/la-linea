@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "soluciones": "node herramientas/soluciones.js"
+    "soluciones": "node herramientas/soluciones.js",
+    "guia": "node herramientas/guia-pdf.js"
   },
   "devDependencies": {
     "vite": "8.3.4",
