@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Juego para 4.º a 7.º grado: ordená las estaciones de una línea de producción y producí lo que pide el cliente.">
+<title>La Línea</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='6' y='56' width='88' height='22' rx='11' fill='%233B4252'/%3E%3Crect x='30' y='26' width='40' height='28' rx='4' fill='%23FF7A1A'/%3E%3Ccircle cx='22' cy='86' r='7' fill='%237A8696'/%3E%3Ccircle cx='50' cy='86' r='7' fill='%237A8696'/%3E%3Ccircle cx='78' cy='86' r='7' fill='%237A8696'/%3E%3C/svg%3E">
+</head>
+<body class="mayus">
+<main class="pantalla inicio" id="inicio" hidden>
+  <div class="inicio-arriba">
+    <svg class="logo" id="logo" viewBox="0 0 240 90" aria-hidden="true"></svg>
+    <h1 id="tituloInicio"></h1>
+    <p class="lema" id="lema"></p>
+  </div>
+  <p class="pregunta" id="preguntaModo"></p>
+  <div class="modos" id="modos"></div>
+</main>
+
+<main class="pantalla niveles" id="niveles" hidden>
+  <header class="barra">
+    <button class="btn-barra" id="btnVolverInicio"></button>
+    <div class="barra-titulo" id="tituloModo"></div>
+    <span class="barra-hueco"></span>
+  </header>
+  <p class="pregunta" id="preguntaNivel"></p>
+  <div class="lista-niveles" id="listaNiveles"></div>
+</main>
+
+<div class="pantalla juego" id="app" hidden>
+  <header class="barra">
+    <button class="btn-barra" id="btnMenu"></button>
+    <div class="barra-titulo">
+      <span class="nivel-num" id="nivelNum"></span>
+      <span class="nivel-nombre" id="nivelNombre"></span>
+    </div>
+    <div class="estrellas-nivel" id="estrellasNivel" aria-hidden="true"></div>
+    <button class="btn-barra" id="btnSonido"></button>
+  </header>
+
+  <div class="principal">
+    <aside class="cliente" id="cliente"></aside>
+
+    <section class="zona-cinta">
+      <div class="cinta-caja" id="cintaCaja">
+        <svg class="cinta-svg" id="cintaSvg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g id="capaCinta"></g>
+          <g id="capaPiezas"></g>
+          <g id="capaEfectos"></g>
+        </svg>
+        <div class="casilleros" id="casilleros" role="group"></div>
+        <div class="repetir" id="repetir" hidden></div>
+        <div class="lote" id="lote" hidden></div>
+      </div>
+    </section>
+
+    <aside class="panel" id="panel">
+      <h2 class="panel-titulo" id="panelTitulo"></h2>
+      <div class="pestanias" id="pestanias" role="tablist" hidden></div>
+      <div class="estaciones" id="estaciones" role="toolbar"></div>
+    </aside>
+  </div>
+
+  <footer class="pie">
+    <div class="mensaje" id="mensaje" aria-live="polite">
+      <svg class="cara-nora" id="caraNora" viewBox="0 0 100 100" aria-hidden="true"></svg>
+      <p id="mensajeTxt"></p>
+    </div>
+    <div class="tablero">
+      <div class="reloj" id="reloj"></div>
+      <div class="contador" id="contador"></div>
+    </div>
+    <div class="acciones">
+      <button class="accion" id="btnVaciar"></button>
+      <button class="accion" id="btnPaso"></button>
+      <button class="accion producir" id="btnProducir"></button>
+      <button class="accion casa" id="btnCasa"></button>
+    </div>
+  </footer>
+</div>
+
+<div id="capas"></div>
+<div class="arrastre" id="arrastre" hidden></div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

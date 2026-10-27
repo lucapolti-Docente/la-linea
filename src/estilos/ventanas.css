@@ -1,0 +1,56 @@
+/* Ventanas (menú y resultado) y animaciones. */
+.fondo-ventana {
+  position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 40; background: rgba(20, 26, 36, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 12px;
+}
+.ventana {
+  width: 100%; max-width: 520px; max-height: 100%; overflow: auto; background: var(--panel); border: 4px solid var(--tinta);
+  border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 0 var(--tinta);
+  animation: aparecer 0.25s ease-out;
+}
+.ventana h2 { margin: 0; font-family: var(--fuente-titulo); font-size: 24px; text-align: center; }
+.ventana p { margin: 0; text-transform: none; }
+.ventana-botones { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.boton {
+  min-height: 60px; min-width: 120px; border: 3px solid var(--tinta); border-radius: 14px; background: #FFFFFF; font-weight: bold; font-size: 16px;
+  padding: 6px 14px; box-shadow: 0 4px 0 var(--tinta); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: var(--tinta);
+}
+.boton .ico { width: 28px; height: 28px; }
+.boton.principal-btn { background: var(--bien); color: #FFFFFF; }
+.boton:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+
+.menu-lista { display: flex; flex-direction: column; gap: 8px; }
+.menu-lista .boton { justify-content: flex-start; width: 100%; }
+.menu-niveles { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+.menu-niveles .boton { min-height: 52px; min-width: 0; font-size: 13px; justify-content: space-between; padding: 4px 8px; }
+.menu-niveles .boton.actual { border-color: var(--acento); background: #FFE7D1; }
+.mini-estrellas { display: flex; }
+.mini-estrellas .icono { width: 16px; height: 16px; }
+.interruptor[aria-pressed="true"] { background: var(--bien-fondo); }
+.interruptor .estado { margin-left: auto; font-size: 13px; }
+
+.resultado-estrellas { display: flex; justify-content: center; gap: 8px; }
+.resultado-estrellas .icono { width: 64px; height: 64px; }
+.resultado-estrellas .estrella-on { animation: estrella 0.5s ease-out both; }
+.resultado-estrellas .estrella-on:nth-child(2) { animation-delay: 0.25s; }
+.resultado-estrellas .estrella-on:nth-child(3) { animation-delay: 0.5s; }
+.resultado-pieza { display: flex; justify-content: center; }
+.resultado-pieza svg { width: 180px; height: 120px; }
+.lista-explica { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.lista-explica li { background: var(--peor-fondo); border-left: 6px solid var(--peor); border-radius: 8px; padding: 6px 8px; font-size: 15px; text-transform: none; }
+.lista-explica li.tiempo { background: #E3F0FB; border-left-color: var(--fabrica); }
+.lista-explica li.bien { background: var(--bien-fondo); border-left-color: var(--bien); }
+.aprende { display: flex; gap: 8px; align-items: center; background: var(--bien-fondo); border-radius: 12px; padding: 8px; font-weight: bold; }
+.aprende svg { width: 48px; height: 48px; flex: none; }
+
+/* ---------- Animaciones ---------- */
+@keyframes aparecer { from { transform: scale(0.9); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes estrella { 0% { transform: scale(0) rotate(-90deg); } 70% { transform: scale(1.25); } 100% { transform: none; } }
+@keyframes sacudir { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+@keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+@keyframes trabajar { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+.sacudir { animation: sacudir 0.45s; }
+.casillero.trabajando .ico { animation: trabajar 0.25s linear infinite; }
+.latido { animation: latido 0.9s ease-in-out infinite; }
+.efecto-humo { animation: humo 1s ease-out forwards; }
+@keyframes humo { from { opacity: 0.9; transform: translateY(0) scale(0.6); } to { opacity: 0; transform: translateY(-30px) scale(1.4); } }

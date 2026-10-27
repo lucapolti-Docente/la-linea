@@ -1,0 +1,211 @@
+/* Pantalla de juego: cliente a la izquierda, cinta al medio, estaciones a la derecha y el pie con
+   mensaje, reloj, contador y botones. En el celular: cliente arriba en una fila, cinta vertical y panel angosto. */
+.principal { flex: 1; min-height: 0; display: flex; gap: 10px; padding: 10px; }
+
+/* ---------- Cliente ---------- */
+.cliente {
+  width: 232px; flex: none; background: var(--panel); border: 3px solid var(--tinta); border-radius: 16px;
+  padding: 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden;
+}
+.cliente-quien { display: flex; align-items: center; gap: 8px; }
+.cliente-quien .cara { width: 64px; height: 64px; flex: none; background: #FFE8C2; border-radius: 50%; border: 3px solid var(--tinta); }
+.cliente-nombre { font-weight: bold; font-size: 17px; }
+.cliente-rol { font-size: 13px; color: var(--tinta-suave); }
+.cliente-pide { margin: 0; font-size: 15px; font-weight: bold; background: var(--fondo); border-radius: 10px; padding: 6px 8px; }
+.cliente-modelo { flex: 1; min-height: 70px; max-height: 150px; width: 100%; background: #F6F8FA; border: 2px dashed #9AA7B4; border-radius: 12px; }
+.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.item { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: bold; padding: 3px 4px; border-radius: 8px; }
+.item .ico { width: 28px; height: 28px; flex: none; }
+.item .marca { width: 26px; height: 26px; flex: none; margin-left: auto; border: 3px solid var(--tinta); border-radius: 6px; background: #FFFFFF; padding: 1px; }
+.item.ok { background: var(--bien-fondo); }
+.item.ok .marca { color: var(--bien); }
+.item.no { background: var(--error-fondo); }
+.item.no .marca { color: var(--error); }
+.materiales { display: flex; flex-wrap: wrap; gap: 6px; }
+.materiales button {
+  flex: 1 1 45%; min-height: 44px; border: 3px solid var(--tinta); border-radius: 10px; background: #FFFFFF; font-weight: bold; font-size: 13px; padding: 4px;
+}
+.materiales button[aria-pressed="true"] { background: var(--acento); color: #FFFFFF; }
+
+/* ---------- Cinta ---------- */
+.zona-cinta { flex: 1; min-width: 0; display: flex; }
+.cinta-caja {
+  position: relative; flex: 1; background: #E8EEF3; border: 3px solid var(--tinta); border-radius: 16px; overflow: hidden;
+  background-image: linear-gradient(#DCE4EB 2px, transparent 2px), linear-gradient(90deg, #DCE4EB 2px, transparent 2px);
+  background-size: 40px 40px;
+}
+.cinta-svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.casilleros { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.casillero {
+  position: absolute; pointer-events: auto; border: 3px dashed #7A8696; border-radius: 14px; background: rgba(255, 255, 255, 0.75);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; overflow: hidden;
+  font-weight: bold; font-size: 13px; line-height: 1.1; transition: background-color 0.15s, transform 0.1s;
+}
+.casillero .num { position: absolute; left: 6px; top: 3px; font-size: 13px; color: #7A8696; }
+.casillero.lleno { touch-action: none; border-style: solid; border-color: var(--tinta); background: #FFFFFF; box-shadow: 0 4px 0 var(--tinta); }
+.casillero.maquina { background: var(--maquina); }
+.casillero .ico { width: 100%; height: 44%; max-height: 64px; flex: none; }
+.casillero .ico .icono { width: 100%; height: 100%; }
+.casillero .min { font-size: 12px; color: var(--tinta-suave); }
+.casillero.fija { border-style: solid; border-color: #9AA7B4; background: #DCE1E6; color: #4A5568; box-shadow: none; }
+.casillero .candado { position: absolute; right: 4px; top: 4px; width: 22px; height: 22px; }
+.casillero .engranaje { position: absolute; right: 4px; top: 4px; width: 22px; height: 22px; }
+.casillero.destino { border-color: var(--acento); background: #FFE7D1; }
+.casillero.sobre { border-color: var(--acento); border-style: solid; background: #FFD4AE; transform: scale(1.04); }
+.casillero.trabajando { border-color: var(--acento); box-shadow: 0 0 0 5px rgba(255, 122, 26, 0.45); }
+.casillero.mal { border-color: var(--error); background: var(--error-fondo); }
+.casillero.peor { border-color: var(--peor); background: var(--peor-fondo); }
+.casillero.lenta { border-color: var(--error); box-shadow: 0 4px 0 var(--error); }
+.casillero .lenta-txt { display: none; font-size: 11px; color: #FFFFFF; background: var(--error); border-radius: 6px; padding: 1px 5px; }
+.casillero.lenta .lenta-txt { display: block; }
+/* casilleros chicos (celular, muchos lugares): ícono al costado del nombre */
+.casillero.chico { flex-direction: row; gap: 6px; padding: 2px 6px 2px 18px; }
+.casillero.chico .ico { width: 36px; height: 80%; }
+.casillero.chico .min { display: none; }
+.casillero.chico .num { top: 50%; margin-top: -8px; }
+
+.repetir {
+  position: absolute; left: 50%; top: 6px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px;
+  background: var(--acento); color: #FFFFFF; border: 3px solid var(--tinta); border-radius: 12px; padding: 3px 8px; font-weight: bold; white-space: nowrap;
+}
+.repetir .ico { width: 30px; height: 30px; }
+.repetir button { min-width: 40px; height: 36px; border: 3px solid var(--tinta); border-radius: 8px; background: #FFFFFF; color: var(--tinta); font-weight: bold; padding: 0 4px; }
+.repetir .veces-num { min-width: 46px; text-align: center; font-size: 22px; background: #FFFFFF; color: var(--tinta); border-radius: 8px; padding: 0 4px; }
+.lote {
+  position: absolute; right: 10px; top: 8px; background: var(--tinta); color: #FFFFFF; font-weight: bold; font-size: 20px;
+  border-radius: 10px; padding: 4px 12px;
+}
+.cinta-rayas { stroke-dashoffset: 0; }
+.andando .cinta-rayas { animation: rayas 0.6s linear infinite; }
+@keyframes rayas { to { stroke-dashoffset: -20; } }
+
+/* ---------- Panel de estaciones ---------- */
+.panel {
+  width: 236px; flex: none; background: var(--panel); border: 3px solid var(--tinta); border-radius: 16px; padding: 8px;
+  display: flex; flex-direction: column; gap: 6px; min-height: 0;
+}
+.panel-titulo { margin: 0; font-size: 16px; text-align: center; }
+.pestanias { display: flex; flex-wrap: wrap; gap: 4px; }
+.pestanias button { flex: 1 1 45%; min-height: 34px; border: 2px solid var(--tinta); border-radius: 8px; background: #F1F5F8; font-size: 12px; font-weight: bold; padding: 2px; }
+.pestanias button[aria-selected="true"] { background: var(--tinta); color: #FFFFFF; }
+.estaciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; overflow: auto; min-height: 0; padding: 2px 2px 6px; }
+.estacion {
+  position: relative; min-height: 92px; border: 3px solid var(--tinta); border-radius: 14px; background: #FFFFFF;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px;
+  font-weight: bold; font-size: 13px; line-height: 1.1; box-shadow: 0 4px 0 var(--tinta); touch-action: none;
+}
+.estacion.maquina { background: var(--maquina); }
+.estacion .ico { width: 46px; height: 46px; }
+.estacion .min { font-size: 12px; color: var(--tinta-suave); }
+.estacion .engranaje { position: absolute; right: 4px; top: 4px; width: 20px; height: 20px; }
+.estacion[aria-pressed="true"] { background: var(--acento); color: #FFFFFF; box-shadow: 0 4px 0 var(--acento-osc); }
+.estacion[aria-pressed="true"] .min { color: #FFFFFF; }
+.estacion:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.estacion.repetir-bloque { background: #FFE7D1; grid-column: 1 / -1; min-height: 60px; flex-direction: row; gap: 8px; }
+.estacion.repetir-bloque .ico { width: 40px; height: 40px; }
+
+/* ---------- Pie ---------- */
+.pie { flex: none; display: flex; align-items: center; gap: 10px; padding: 0 10px 10px; }
+.mensaje {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--panel); border: 3px solid var(--tinta);
+  border-radius: 16px; padding: 4px 10px 4px 4px; min-height: 66px;
+}
+.cara-nora { width: 54px; height: 54px; flex: none; }
+.mensaje p { margin: 0; font-size: 16px; font-weight: bold; text-transform: none; }
+.mensaje.mal { background: var(--error-fondo); border-color: var(--error); }
+.mensaje.peor { background: var(--peor-fondo); border-color: var(--peor); }
+.mensaje.bien { background: var(--bien-fondo); border-color: var(--bien); }
+.tablero { display: flex; gap: 8px; }
+.reloj, .contador {
+  background: var(--panel); border: 3px solid var(--tinta); border-radius: 14px; padding: 4px 10px; min-height: 66px;
+  display: flex; align-items: center; gap: 8px; font-weight: bold;
+}
+.reloj { min-width: 220px; }
+.reloj .ico, .contador .ico { width: 36px; height: 36px; flex: none; }
+.reloj-datos { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.reloj-valor { font-size: 20px; }
+.reloj-meta { font-size: 12px; color: var(--tinta-suave); }
+.barra-tiempo { position: relative; height: 12px; background: #E3E8EE; border-radius: 6px; border: 2px solid var(--tinta); overflow: hidden; }
+.barra-tiempo .relleno { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bien); transition: width 0.3s; }
+.barra-tiempo.pasada .relleno { background: var(--error); }
+.barra-tiempo.mano .relleno { background: #7A8696; }
+.barra-tiempo .marca-meta { position: absolute; top: -2px; bottom: -2px; width: 3px; background: var(--tinta); }
+.barra-fila { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+.barra-fila .barra-tiempo { flex: 1; }
+.barra-fila span { width: 64px; flex: none; }
+.contador .valor { font-size: 20px; white-space: nowrap; }
+.acciones { display: flex; gap: 8px; }
+.accion {
+  min-width: 66px; height: 66px; border: 3px solid var(--tinta); border-radius: 14px; background: #FFFFFF; font-weight: bold; font-size: 13px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px 8px; box-shadow: 0 4px 0 var(--tinta);
+}
+.accion .ico { width: 30px; height: 30px; }
+.accion.producir { background: var(--bien); color: #FFFFFF; min-width: 120px; font-size: 16px; }
+.accion.casa { background: var(--barra); color: #FFFFFF; }
+.accion:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.accion:disabled { opacity: 0.45; box-shadow: none; transform: none; }
+
+.arrastre {
+  position: fixed; left: 0; top: 0; z-index: 50; pointer-events: none; width: 80px; height: 80px; padding: 8px;
+  background: #FFFFFF; border: 3px solid var(--acento); border-radius: 14px; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3); opacity: 0.92;
+}
+
+/* ---------- Pantallas medianas ---------- */
+@media (max-width: 1100px) {
+  .cliente { width: 200px; }
+  .panel { width: 206px; }
+  .reloj { min-width: 180px; }
+  .accion.producir { min-width: 96px; }
+}
+
+/* ---------- Celular y ventanas angostas ---------- */
+@media (max-width: 700px) {
+  .barra { height: 46px; gap: 6px; }
+  .btn-barra { width: 40px; height: 40px; padding: 6px; }
+  .nivel-num { display: none; }
+  .nivel-nombre { font-size: 16px; }
+  .estrellas-nivel .icono { width: 20px; height: 20px; }
+  .principal { display: grid; grid-template-columns: minmax(0, 1fr) 140px; grid-template-rows: auto minmax(0, 1fr); gap: 6px; padding: 6px; }
+  .cliente { grid-column: 1 / -1; width: auto; flex-direction: row; align-items: center; padding: 4px 6px; gap: 6px; min-height: 58px; }
+  .cliente-quien .cara { width: 44px; height: 44px; }
+  .cliente-quien > div, .cliente-rol { display: none; }
+  .cliente-pide { flex: 1; min-width: 0; font-size: 12px; padding: 3px 6px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .cliente-modelo { flex: none; width: 56px; height: 48px; min-height: 0; }
+  .items { flex-direction: row; gap: 2px; }
+  .item { padding: 1px; position: relative; }
+  .item .txt { display: none; }
+  .item .ico { width: 22px; height: 22px; }
+  .item .marca { position: absolute; right: -3px; bottom: -3px; width: 14px; height: 14px; border-width: 2px; padding: 0; border-radius: 4px; }
+  .materiales { flex-wrap: nowrap; }
+  .materiales button { min-height: 40px; font-size: 10px; padding: 2px; }
+  .zona-cinta { min-height: 0; }
+  .panel { width: 140px; padding: 5px; }
+  .panel-titulo { display: none; }
+  .estaciones { gap: 6px; }
+  .estacion { min-height: 62px; font-size: 10px; padding: 2px; }
+  .estacion .ico { width: 34px; height: 34px; }
+  .estacion .min { display: none; }
+  .estacion .engranaje { width: 15px; height: 15px; }
+  .estacion.repetir-bloque { min-height: 48px; }
+  .pestanias button { min-height: 30px; font-size: 9px; }
+  .pie { flex-wrap: wrap; gap: 6px; padding: 0 6px 6px; }
+  .mensaje { flex: 1 1 100%; min-height: 44px; padding: 2px 6px 2px 2px; }
+  .cara-nora { width: 36px; height: 36px; }
+  .mensaje p { font-size: 13px; }
+  .tablero { flex: 1; min-width: 0; flex-direction: column; gap: 4px; }
+  .reloj, .contador { min-height: 0; min-width: 0; padding: 2px 6px; border-radius: 10px; gap: 4px; }
+  .reloj .ico, .contador .ico { width: 22px; height: 22px; }
+  .reloj-valor, .contador .valor { font-size: 13px; }
+  .contador .valor { white-space: normal; }
+  .reloj-meta, .barra-fila span { display: none; }
+  .barra-tiempo { height: 8px; }
+  .acciones { gap: 5px; }
+  .accion { min-width: 60px; width: 60px; height: 62px; font-size: 10px; padding: 2px; }
+  .accion.producir { min-width: 66px; width: 66px; font-size: 11px; }
+  .lote { font-size: 15px; padding: 2px 8px; right: 6px; top: 6px; }
+  .repetir { top: 4px; gap: 3px; padding: 2px 4px; font-size: 12px; }
+  .repetir .ico { width: 22px; height: 22px; }
+  .repetir button { min-width: 32px; height: 32px; font-size: 12px; }
+  .repetir .veces-num { min-width: 38px; font-size: 17px; }
+}

@@ -1,0 +1,65 @@
+/* Colores y base. Paleta propia, pensada para pantallas lavadas: contornos oscuros y colores saturados.
+   Tema único (claro) a propósito: es lo que mejor se ve en las netbooks de la escuela. */
+:root {
+  color-scheme: light;
+  --fondo: #FFF3DC;
+  --panel: #FFFFFF;
+  --tinta: #1E2430;
+  --tinta-suave: #4A5568;
+  --barra: #233044;
+  --barra-tinta: #FFFFFF;
+  --acento: #FF7A1A;
+  --acento-osc: #C9550A;
+  --bien: #1E8F45;
+  --bien-fondo: #DDF5E3;
+  --error: #C52A20;
+  --error-fondo: #FFE3DF;
+  --peor: #B86E00;
+  --peor-fondo: #FFF0C2;
+  --casillero: #F1F5F8;
+  --maquina: #DCE9F7;
+  --estrella: #FFC233;
+  --taller: #E4572E;
+  --fabrica: #1F6FD1;
+  --planta: #7A3FC2;
+  --libre: #2F9E5B;
+  --fuente: Verdana, "DejaVu Sans", Tahoma, "Segoe UI", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  --fuente-titulo: "Trebuchet MS", "Arial Rounded MT Bold", "DejaVu Sans", Verdana, sans-serif;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--fondo); color: var(--tinta);
+  font-family: var(--fuente); font-size: 16px; line-height: 1.3;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body.mayus, body.mayus button { text-transform: uppercase; }
+button { font-family: inherit; font-size: inherit; color: inherit; cursor: pointer; touch-action: manipulation; }
+button:disabled { cursor: default; }
+button:focus-visible, a:focus-visible { outline: 4px solid var(--acento); outline-offset: 2px; }
+.icono { width: 100%; height: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+.pantalla { height: 100%; display: flex; flex-direction: column; }
+
+.barra {
+  display: flex; align-items: center; gap: 10px; flex: none;
+  height: 54px; padding: 0 8px; background: var(--barra); color: var(--barra-tinta);
+}
+.btn-barra {
+  width: 46px; height: 46px; padding: 7px; border: 0; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12); color: var(--barra-tinta); flex: none;
+}
+.btn-barra:hover { background: rgba(255, 255, 255, 0.24); }
+.barra-titulo { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 10px; font-family: var(--fuente-titulo); font-weight: bold; }
+.barra-hueco { width: 46px; flex: none; }
+.nivel-num { font-size: 14px; opacity: 0.85; white-space: nowrap; }
+.nivel-nombre { font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.estrellas-nivel { display: flex; gap: 2px; }
+.estrellas-nivel .icono { width: 26px; height: 26px; }
+
+.estrella-on { color: var(--estrella); }
+.estrella-off { color: #5B6678; }
