@@ -73,7 +73,7 @@ export const STATIONS = {
   motorE: {label: 'Motor', name: 'Motor eléctrico (electricidad → movimiento)', act: 2, machine: 'motor', accepts: ['elec'], makesKind: 'mov', proc: 1, desbloqueo: {ene: 'e_dinamo'}},
   elevador: {label: 'Transf. elevador', name: 'Transformador elevador (baja → ALTA tensión)', act: 3, machine: 'trafo', accepts: ['elec'], up: true, proc: 1, desbloqueo: {ene: 'e_red'}},
   reductor: {label: 'Transf. reductor', name: 'Transformador reductor (ALTA → baja tensión)', act: 3, machine: 'trafo', accepts: ['elec'], down: true, proc: 1, desbloqueo: {ene: 'e_red'}},
-  reactor: {label: 'Reactor', name: 'Reactor nuclear (uranio → mucho calor)', act: 3, machine: 'reactor', accepts: ['uranio'], makesKind: 'calor', burst: 2, proc: 2, desbloqueo: {ene: 'e_centrales'}},
+  reactor: {label: 'Reactor', name: 'Reactor nuclear (uranio → mucho calor)', act: 3, machine: 'reactor', accepts: ['uranio'], makesKind: 'calor', proc: 2, desbloqueo: {ene: 'e_centrales'}},
   panel: {label: 'Panel solar', name: 'Panel solar (luz del sol → electricidad)', act: 3, machine: 'panel', accepts: ['luzSol'], makesKind: 'elec', proc: 1, desbloqueo: {ene: 'e_renovable'}},
   eolico: {label: 'Molino eólico', name: 'Molino eólico (viento → movimiento)', act: 1, machine: 'windmill', accepts: ['viento'], makesKind: 'mov', proc: 1, desbloqueo: {ene: 'e_molinoV'}},
   bateria: {label: 'Batería', name: 'Batería (guarda electricidad para la noche)', act: 3, machine: 'battery', battery: 6, proc: 1, desbloqueo: {ene: 'e_renovable'}},
