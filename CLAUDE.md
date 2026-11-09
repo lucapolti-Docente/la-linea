@@ -36,7 +36,9 @@ Este CLAUDE.md manda por sobre el general de `juegos-docente/`: acá sí hay npm
 - `src/interfaz/` es lo único que toca la pantalla.
 
 ## Antes de dar algo por terminado
-- `npm test`: el motor nuevo da lo mismo que el original tick a tick (`tests/original.test.js`), y el resto de los tests.
+- `npm test`: el motor nuevo da lo mismo que el original tick a tick (`tests/original.test.js`), la solución guardada de cada nivel gana con 30 semillas y la mala pierde (`tests/niveles.test.js`), estrellas y horario (`tests/reglas.test.js`).
+- `npm run soluciones` al tocar un nivel, un generador o una regla: muestra cuántas semillas gana cada solución, las estrellas y el margen contra el horario. Para mirar un tablero: `node herramientas/ver-tablero.js <mundo> <nivel> <semilla>`.
+- Cada nivel nuevo necesita su solución buena y mala en `tests/soluciones/<mundo>.js`.
 - `npm run capturas:comparar` después de sacar capturas nuevas con la skill `verificar-juego` (base en `pruebas/base/`).
 - Skill `verificar-juego` en 1366×768 y en 360×620, tocando los botones como un chico: sin errores en la consola.
 - Si cambia algo del armado, probar también `npm run build:pendrive` abriendo el archivo con doble clic.

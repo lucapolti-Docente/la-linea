@@ -18,3 +18,19 @@
 - CSS compatible con Chrome viejo: `inset` y `padding-block` cambiados por `top/right/bottom/left` y `padding-top/bottom`. Se ve igual.
 - Faltaba `<meta name="viewport">`: en celulares de verdad la página se veía achicada.
 - Se sacaron cosas que no se usaban: `COMING` (lista vacía de niveles "próximamente"), `ACTNAME`, `unlockN`, `redDir`.
+
+## Etapa 2: tests de todos los niveles (9/11/2026)
+
+- **Soluciones que se adaptan al tablero.** Como los tableros cambian con la semilla, cada solución (`tests/soluciones/<mundo>.js`) se escribe con una API chica (`tests/soluciones/api.js`): busca la entrada y el camión, traza el camino más corto y ubica estaciones y sensores sin pisar nada fijo ni pasar por delante de otra entrada. Los tres tableros grandes que no cambian (El Centro Verde, La planta automática, Basura cero) están armados celda por celda.
+- **30 semillas por nivel.** `tests/niveles.test.js`: la solución buena gana con las 30 y la mala pierde con 10. En "Falta un tramo" no hay forma de perder (no hay horario ni piezas que puedan salir mal), así que ahí la mala solo no gana.
+- **Las soluciones también corren en el motor original.** `tests/original.test.js` ahora juega cada solución en los dos motores, tick a tick, hasta ganar. Con esto, un cambio en la lavadora que antes pasaba inadvertido rompe 3 tests.
+- **`npm run soluciones`** muestra por nivel: cuántas semillas gana, estrellas, ticks y margen contra el horario. `node herramientas/ver-tablero.js <mundo> <nivel> <semilla>` dibuja el tablero en texto.
+- **Estrellas y horario**: tests de `par = L.par + N × L.per` (con 4 por pieza si falta `per`, como el original) y de que el horario es igual al original en todos los niveles; se puede terminar justo en el tick del horario y un tick después el camión ya salió.
+- **`burst` del reactor: lo saqué.** No lo leía ninguna parte del juego y el reactor ya se distingue por dar calor desde el uranio.
+
+### Generadores corregidos
+- **El Centro Verde, La planta automática y ¿Reutilizar o reciclar?** dependían mucho de la suerte: con la misma línea, una semilla tardaba 86 ticks y otra 163 (horario: 170). Ahora la mezcla sale de una "bolsa" con las proporciones exactas, en orden al azar (`bolsa()` en `generadores/comun.js`, y `defectSeq` para las botellas rotas). Con la misma línea tardan entre 86 y 97, 41 y 50, y 29 y 38 ticks. Estos tres niveles se comparan con el original solo en la forma del tablero.
+
+### Para la etapa 3 (encontrado al escribir las soluciones)
+- Horarios justos confirmados con soluciones razonables: La boleta de luz y Mantenimiento quedan con 6 ticks de margen. También ajustados: La hora pico (4), Dos brazos (5) y La cooperativa (9).
+- "La enfardadora": el camión de papel acepta un fardo de plástico puro (la regla solo revisa que no esté mezclado). Es una regla del juego: lo propongo en la etapa 3.

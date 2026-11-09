@@ -11,6 +11,7 @@ Juego para 4.º a 7.º grado: armar líneas de producción con cintas y estacion
 npm install
 npm run dev          # el juego en http://localhost:5173
 npm test             # tests (incluye la comparación con el juego original)
+npm run soluciones   # cada nivel con 30 semillas: gana, estrellas, margen contra el horario
 npm run build        # versión para GitHub Pages (dist/)
 npm run build:pendrive
 ```
@@ -30,7 +31,8 @@ No cambies el `id` de un nivel: el progreso de los chicos se guarda con ese id.
 1. Agregalo en el archivo del mundo, en el lugar donde se tiene que jugar, con un `id` nuevo.
 2. Si necesita un tablero nuevo, escribí su generador en `src/generadores/<mundo>.js` y sumalo a `GEN` al final del archivo.
 3. Si el camión tiene que revisar algo especial, sumá la regla en `src/reglas/niveles.js` y sus motivos en `datos/mensajes.js`.
-4. `npm test`.
+4. Escribí su solución buena y una mala en `tests/soluciones/<mundo>.js` (`node herramientas/ver-tablero.js <mundo> <nivel> <semilla>` ayuda a mirar el tablero).
+5. `npm test` y `npm run soluciones`.
 
 ## Sumar un mundo
 
