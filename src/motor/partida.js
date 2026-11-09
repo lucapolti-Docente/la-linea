@@ -33,12 +33,26 @@ export function crearPartida(mundo, idx, seed, speed) {
   };
   usarPartida(p);
   for (const z of p.zones) z.label = resolverEtiqueta(z.label, mundo);
+  prepararTablero(mundo);
+  makeTagSeq();
+  return p;
+}
+
+/* Carteles del tablero y lista de camiones de la partida en juego. */
+function prepararTablero(mundo) {
+  G.trucks = [];
   eachTile(t => {
     if (t.label) t.label = resolverEtiqueta(t.label, mundo);
     if (t.t === 'truck' && !t.ambient) { if (!t.n) t.n = G.N; G.trucks.push(t); }
   });
-  makeTagSeq();
-  return p;
+}
+
+/* Vuelve el tablero a como lo dio el nivel (en los niveles para depurar, la línea rota) y la producción a cero.
+   El generador con la misma semilla arma el mismo tablero. */
+export function volverAlInicio(mundo) {
+  G.grid = G.L.gen(mulberry32(G.seed)).g;
+  prepararTablero(mundo);
+  resetProduction();
 }
 
 /* Vuelve la producción a cero. La línea armada queda como está. */

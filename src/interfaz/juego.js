@@ -1,7 +1,7 @@
 /* Pantalla de juego: arrancar un nivel, paleta, pedido, columna derecha, carteles y el bucle de animación. */
 import { $, ui, fmtHora } from './dom.js';
 import { G, W, H } from '../motor/estado.js';
-import { crearPartida, resetProduction, eachTile } from '../motor/partida.js';
+import { crearPartida, resetProduction, volverAlInicio, eachTile } from '../motor/partida.js';
 import { step } from '../motor/paso.js';
 import { par } from '../motor/estrellas.js';
 import { MUNDO } from '../mundos/index.js';
@@ -30,6 +30,8 @@ export const WL = () => MUNDO[ui.mundo].levels;
 export function startLevel(idx, seed) {
   crearPartida(MUNDO[ui.mundo], idx, seed, G ? G.speed : 1);
   ui.tool = 'cinta'; $('#toast').className = 'toast'; closePick(); G.tab = null;
+  // En los niveles para depurar el tablero es fijo: en lugar de otra línea, se puede volver a la línea rota
+  $('#newBtn').textContent = G.L.kind === 'Depurar' ? J.volverRota : J.otraLinea;
   buildPalette(); buildOrder(); updateSide(); show('game');
   $('#boardHint').textContent = J.ayudaTablero;
   setTimeout(showIntro, 30);
@@ -142,7 +144,10 @@ export function conectarJuego() {
     resetProduction(); updateSide(); closePick();
     eachTile((t, x, y) => { if (t.t === 'belt' && !t.locked) G.grid[y][x] = null; if (t.t === 'station' && !t.fixed) G.grid[y][x] = null; });
   };
-  $('#newBtn').onclick = () => startLevel(G.idx);
+  $('#newBtn').onclick = () => {
+    if (G.L.kind !== 'Depurar') return startLevel(G.idx);
+    volverAlInicio(MUNDO[ui.mundo]); closePick(); buildOrder(); updateSide(); toast(J.lineaRota);
+  };
   $('#qBtn').onclick = showParts; $('#qBtn2').onclick = showParts;
   $('#hintBtn').onclick = () => openModal(`<span class="eyebrow">${TX.ventanas.pista}</span><h2>${G.L.title}</h2><p>${G.L.hint}</p><div class="modal-actions"><button class="btn primary" data-close>${TX.ventanas.entendido}</button></div>`);
   addEventListener('keydown', e => {

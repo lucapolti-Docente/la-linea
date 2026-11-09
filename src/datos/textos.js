@@ -67,7 +67,7 @@ export const TX = {
   juego: {
     ayudaNivel: 'Cómo funciona este nivel', tablero: 'Tablero de la fábrica', velocidad: 'Velocidad', paleta: 'Piezas para armar la línea',
     objetivo: 'Objetivo', loNuevo: 'Lo nuevo', verTodo: 'Ver cómo funciona todo', pedido: 'Pedido del cliente', reloj: 'Reloj', errores: 'Errores', piezas: 'Piezas',
-    reiniciar: 'Reiniciar', pista: 'Pista', borrarTodo: 'Borrar todo', otraLinea: 'Otra línea',
+    reiniciar: 'Reiniciar', pista: 'Pista', borrarTodo: 'Borrar todo', otraLinea: 'Otra línea', volverRota: 'Volver a la línea rota',
     barra: 'Acto {acto} · Nivel {n} · {titulo}',
     ayudaTablero: 'Arrastrá para dibujar cinta · tocá una cinta para girarla · tocá una estación para elegir sus lados',
     encender: 'Encender', pausar: 'Pausar', seguir: 'Seguir',
@@ -81,6 +81,7 @@ export const TX = {
     nadaDesafio: 'Nada nuevo: es un desafío para usar todo lo que ya aprendiste.',
     cinta: ['Cinta', 'Cinta transportadora'], borrar: ['Borrar', 'Borrar cintas y estaciones'],
     reinicio: 'La producción volvió a cero. Tu línea sigue armada.',
+    lineaRota: 'Volvió la línea rota, como estaba al empezar.',
     fija: 'Esa pieza viene fija con la fábrica.', pasillo: 'El pasillo tiene que quedar libre para que pase la técnica.',
     maxEstaciones: 'En este diseño podés usar como máximo {n} estaciones. Borrá una para cambiarla.',
     cintaArmada: 'Esa cinta viene armada. Seguí desde donde termina.', estacionFija: 'Esta estación está fija. Conectá cintas a su alrededor.'
