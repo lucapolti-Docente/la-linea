@@ -10,6 +10,7 @@ import { station } from '../generadores/comun.js';
 import { paintIcon } from '../dibujo/util.js';
 import { drawStation } from '../dibujo/estaciones.js';
 import { toast } from './juego.js';
+import { Sonido } from '../sonido.js';
 
 const J = TX.juego, P = TX.lados;
 let canvas;
@@ -23,15 +24,15 @@ function dirFrom(a, b) { return b.x > a.x ? 0 : b.x < a.x ? 2 : b.y > a.y ? 1 : 
 function removeItemsAt(x, y) { G.items = G.items.filter(i => !(i.x === x && i.y === y)); }
 function erase(c) {
   const t = tileAt(c.x, c.y); if (!t) return;
-  if (t.t === 'belt' && !t.locked) { G.grid[c.y][c.x] = null; removeItemsAt(c.x, c.y); }
-  else if (t.t === 'station' && !t.fixed) { G.grid[c.y][c.x] = null; if (ui.pick && ui.pick.x === c.x && ui.pick.y === c.y) closePick(); }
+  if (t.t === 'belt' && !t.locked) { G.grid[c.y][c.x] = null; removeItemsAt(c.x, c.y); Sonido.efecto('sacar'); }
+  else if (t.t === 'station' && !t.fixed) { G.grid[c.y][c.x] = null; Sonido.efecto('sacar'); if (ui.pick && ui.pick.x === c.x && ui.pick.y === c.y) closePick(); }
   else if (ui.drag && !ui.drag.moved) toast(J.fija, 'warn');
 }
 function paintStep(a, b) {
   const d = dirFrom(a, b), ta = tileAt(a.x, a.y);
   if (ta && ta.t === 'belt' && !ta.locked) ta.dir = d;
   const tb = tileAt(b.x, b.y);
-  if (!tb) G.grid[b.y][b.x] = { t: 'belt', dir: d };
+  if (!tb) { G.grid[b.y][b.x] = { t: 'belt', dir: d }; Sonido.efecto('cinta'); }
 }
 
 function pointerDown(e) {
@@ -45,11 +46,11 @@ function pointerDown(e) {
     const k = tool.slice(3);
     if (!t && c.y === G.pasillo) { toast(J.pasillo, 'warn'); return; }
     if (!t && G.L.maxSt) { let n = 0; eachTile(q => { if (q.t === 'station' && !q.fixed) n++; }); if (n >= G.L.maxSt) { toast(fmt(J.maxEstaciones, { n: G.L.maxSt }), 'warn'); return; } }
-    if (!t) { G.grid[c.y][c.x] = station(k, 0, false); ui.drag.placed = true; openPick(c.x, c.y); }
+    if (!t) { G.grid[c.y][c.x] = station(k, 0, false); ui.drag.placed = true; Sonido.efecto('poner'); openPick(c.x, c.y); }
     else if (t.t === 'station' && !t.fixed) { ui.drag.placed = true; openPick(c.x, c.y); }
     return;
   }
-  if (tool === 'cinta' && !t) { G.grid[c.y][c.x] = { t: 'belt', dir: 0 }; ui.drag.placed = true; }
+  if (tool === 'cinta' && !t) { G.grid[c.y][c.x] = { t: 'belt', dir: 0 }; ui.drag.placed = true; Sonido.efecto('cinta'); }
 }
 function pointerMove(e) {
   if (!G) return; const c = cellFrom(e); ui.hover = c;
@@ -70,7 +71,7 @@ function endDrag() {
   if (!drag || !G) return;
   const t = drag.startTile;
   if (!drag.moved && !drag.placed && t && ui.tool !== 'borrar') {
-    if (t.t === 'belt' && !t.locked) { t.dir = (t.dir + 1) % 4; }
+    if (t.t === 'belt' && !t.locked) { t.dir = (t.dir + 1) % 4; Sonido.efecto('clic'); }
     else if (t.t === 'station' && !t.fixed) { openPick(drag.start.x, drag.start.y); }
     else if (t.t === 'belt' && t.locked) toast(J.cintaArmada, 'warn');
     else if (t.t === 'station' && t.fixed && (STATIONS[t.type].thr || STATIONS[t.type].timer)) openPick(drag.start.x, drag.start.y);
@@ -127,10 +128,10 @@ function renderPick() {
       if (!two) { t.dir = d; t.alt = (d + 1) % 4; }
       else if (pick.mode === 'yes') { if (d === t.alt) t.alt = t.dir; t.dir = d; pick.mode = 'no'; }
       else { if (d === t.dir) t.dir = t.alt; t.alt = d; }
-      renderPick();
+      Sonido.efecto('clic'); renderPick();
     };
   });
-  if ($('#pickDel')) $('#pickDel').onclick = () => { G.grid[pick.y][pick.x] = null; closePick(); };
+  if ($('#pickDel')) $('#pickDel').onclick = () => { G.grid[pick.y][pick.x] = null; Sonido.efecto('sacar'); closePick(); };
   $('#pickOk').onclick = closePick;
 }
 export function closePick() { ui.pick = null; const el = $('#pick'); if (el) el.hidden = true; }

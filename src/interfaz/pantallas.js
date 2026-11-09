@@ -8,6 +8,7 @@ import { paintIcon, starSvg } from '../dibujo/util.js';
 import { dibujar } from '../dibujo/iconos.js';
 import { bestW, PLAYER, saveAll, progText, borrarProgreso } from '../guardado.js';
 import { startLevel, updateSide, resize } from './juego.js';
+import { Sonido } from '../sonido.js';
 
 const screens = ['home', 'diff', 'levels', 'help', 'config', 'game'];
 
@@ -81,6 +82,12 @@ function buildProgress() {
 export function conectarPantallas() {
   const P = TX.progreso;
   $('#learnList').innerHTML = TX.inicio.aprender.map(t => `<li>${t}</li>`).join('');
+  const snd = $('#sndBtn'), pintarSonido = () => {
+    const txt = Sonido.activo ? TX.menu.sonido : TX.menu.silencio;
+    snd.setAttribute('aria-pressed', String(Sonido.activo)); snd.setAttribute('aria-label', txt); snd.title = txt;
+  };
+  snd.onclick = () => { Sonido.alternar(); pintarSonido(); Sonido.efecto('clic'); };
+  pintarSonido();
   $('#menuBtn').onclick = () => ($('#drawer').classList.contains('open') ? closeDrawer() : openDrawer());
   $('#scrim').onclick = closeDrawer;
   document.querySelectorAll('[data-go]').forEach(b => { b.onclick = () => show(b.dataset.go); });

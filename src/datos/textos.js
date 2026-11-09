@@ -33,7 +33,7 @@ export const TX = {
     si: 'SÍ', no: 'NO', pedido: 'Pedido', perdida: 'pérdida'
   },
   marca: 'La <b>Línea</b>',
-  menu: { abrir: 'Abrir menú', titulo: 'Menú principal', inicio: 'Inicio', niveles: 'Niveles', ayuda: 'Cómo se juega', progreso: 'Progreso', pie: 'Tecnología · Procesos productivos' },
+  menu: { abrir: 'Abrir menú', titulo: 'Menú principal', inicio: 'Inicio', niveles: 'Niveles', ayuda: 'Cómo se juega', progreso: 'Progreso', sonido: 'Sonido: tocá para silenciar', silencio: 'Sin sonido: tocá para activarlo', pie: 'Tecnología · Procesos productivos' },
   inicio: {
     tira: 'Animación de una línea de producción', jugar: 'Jugar',
     lead: 'Armá la cinta de una carpintería y mirá cómo se convierte en fábrica. Cada pedido del cliente se arma paso a paso.',
@@ -71,6 +71,7 @@ export const TX = {
     barra: 'Acto {acto} · Nivel {n} · {titulo}',
     ayudaTablero: 'Arrastrá para dibujar cinta · tocá una cinta para girarla · tocá una estación para elegir sus lados',
     encender: 'Encender', pausar: 'Pausar', seguir: 'Seguir',
+    paso: 'Paso', pasoAyuda: 'Paso: avanza un tick y se detiene',
     camionSale: 'El camión sale a las {hora}', camionesSalen: 'Los camiones salen a las {hora}', faltan: ' · faltan {n}',
     completo: '<b>Pedido completo.</b> Los camiones salen.',
     repetir: 'Repetir hasta tener <b>{N}</b> · vamos por la <b>{vuelta}.ª</b>',

@@ -16,6 +16,7 @@
   <button class="menu-btn" id="menuBtn" data-t-aria="menu.abrir" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   <div class="brand" data-t-html="marca"></div>
   <div class="bar-info" id="barInfo"></div>
+  <button class="snd-btn" id="sndBtn" aria-pressed="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="on" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/><path class="off" d="M16 9l6 6M22 9l-6 6"/></svg></button>
   <button class="q-btn" id="qBtn" data-t-aria="juego.ayudaNivel" hidden>?</button>
 </header>
 
@@ -100,7 +101,10 @@
       </div>
       <aside class="side">
         <div class="card controls">
-          <button class="btn primary big" id="runBtn"></button>
+          <div class="run-row">
+            <button class="btn primary big" id="runBtn"></button>
+            <button class="btn paso" id="stepBtn" data-t="juego.paso" data-t-aria="juego.pasoAyuda"></button>
+          </div>
           <div class="speed" role="group" data-t-aria="juego.velocidad">
             <button data-speed="1" aria-pressed="true">x1</button>
             <button data-speed="2" aria-pressed="false">x2</button>

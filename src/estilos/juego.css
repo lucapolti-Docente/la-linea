@@ -118,6 +118,11 @@ h1,h2,h3{text-wrap:balance}
 .new-item b{color:var(--ink);display:block}
 .q-btn{width:44px;height:44px;flex:none;border-radius:50%;background:var(--accent);color:var(--accent-ink);border:0;font-family:var(--f-display);font-weight:800;font-size:26px;cursor:pointer;line-height:1}
 .q-btn:hover{filter:brightness(1.08)}
+.snd-btn{width:44px;height:44px;flex:none;display:grid;place-content:center;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.snd-btn:hover{border-color:var(--accent)}
+.snd-btn .off,.snd-btn[aria-pressed="false"] .on{display:none}
+.snd-btn[aria-pressed="false"] .off{display:inline}
+.snd-btn[aria-pressed="false"]{color:var(--muted)}
 .parts{display:flex;flex-direction:column;gap:10px}
 .part{display:flex;gap:14px;align-items:flex-start;padding:10px;border-radius:10px;background:var(--panel-2)}
 .part canvas{width:56px;height:56px;flex:none}
@@ -219,6 +224,9 @@ h1,h2,h3{text-wrap:balance}
 .loop{font-size:14px;color:var(--muted)}
 .loop b{color:var(--ink)}
 .controls{display:flex;flex-direction:column;gap:8px}
+.run-row{display:flex;gap:6px}
+.run-row #runBtn{flex:1;min-width:0}
+.btn.paso{padding:10px 14px;font-weight:700}
 .speed{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .speed button{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:7px 0;cursor:pointer;font-weight:700;font-variant-numeric:tabular-nums}
 .speed button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}

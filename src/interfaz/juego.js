@@ -21,6 +21,7 @@ import { drawStrip } from '../dibujo/portada.js';
 import { show } from './pantallas.js';
 import { closePick, conectarEdicion } from './edicion.js';
 import { showIntro, showWin, showLose, showParts, openModal, diag } from './ventanas.js';
+import { Sonido } from '../sonido.js';
 
 const J = TX.juego;
 let canvas, bctx, strip, sctx;
@@ -90,6 +91,7 @@ export function updateSide() {
       + (G.L.energy ? `<span class="sg" style="color:${(G.kwh || 0) > G.L.energy - 2 ? '#e8665a' : '#f2c84b'}">${fmt(J.energia, { kwh: G.kwh || 0, max: G.L.energy })}</span>` : '');
   $('#runBtn').textContent = G.running ? J.pausar : (G.tick > 0 && !G.done ? J.seguir : J.encender);
   $('#runBtn').disabled = G.done || G.lost;
+  $('#stepBtn').disabled = G.done || G.lost;
   document.querySelectorAll('.speed button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.speed === G.speed)));
 }
 
@@ -103,6 +105,16 @@ export function toast(msg, kind = '') {
   clearTimeout(toastT); toastT = setTimeout(() => { el.className = 'toast ' + kind; }, 2800);
 }
 /* Muestra los carteles que dejó el motor. */
+/* Un tick de la línea, con sus sonidos y carteles. */
+function avanzar() {
+  const llegaron = () => G.trucks.reduce((s, t) => s + t.got, 0);
+  const antes = llegaron(), errores = G.errors;
+  step();
+  if (G.errors > errores) Sonido.efecto('error');
+  else if (llegaron() > antes) Sonido.efecto('entrega', llegaron());
+  mostrarEventos(); updateSide();
+}
+
 function mostrarEventos() {
   while (G.eventos.length) { const e = G.eventos.shift(); toast(e.msg, e.kind); }
 }
@@ -114,11 +126,13 @@ function frame(now) {
   if (ui.current === 'home') drawStrip(strip, sctx, now);
   if (!G || ui.current !== 'game') return;
   const tickMs = 420 / G.speed;
-  if (G.running) { G.phase += dt / tickMs; if (now - G.lastTickAt >= tickMs) { G.lastTickAt = now; step(); mostrarEventos(); updateSide(); } }
-  const frac = G.running ? Math.min(1, (now - G.lastTickAt) / tickMs) : 1;
+  if (G.running) { G.phase += dt / tickMs; if (now - G.lastTickAt >= tickMs) { G.lastTickAt = now; avanzar(); } }
+  else if (G.pasoAnim) G.phase += dt / tickMs;
+  const frac = G.running || G.pasoAnim ? Math.min(1, (now - G.lastTickAt) / tickMs) : 1;
+  if (G.pasoAnim && frac >= 1) G.pasoAnim = false;
   drawBoard(bctx, ui.dpr, now, frac, ui.hover, ui.tool);
-  if (G.lose && !G.lose.shown && now >= G.lose.at) { G.lose.shown = true; showLose(G.lose.r, G.lose.late); }
-  if (G.done && !G.winShown && now - G.doneAt > 1700) { G.winShown = true; showWin(); }
+  if (G.lose && !G.lose.shown && now >= G.lose.at) { G.lose.shown = true; Sonido.efecto('pierde'); showLose(G.lose.r, G.lose.late); }
+  if (G.done && !G.winShown && now - G.doneAt > 1700) { G.winShown = true; Sonido.efecto('gana'); showWin(); }
 }
 
 export function resize() {
@@ -137,7 +151,13 @@ export function conectarJuego() {
   strip = $('#strip'); sctx = strip.getContext('2d');
   addEventListener('resize', resize);
   conectarEdicion(canvas);
-  $('#runBtn').onclick = () => { if (!G || G.done || G.lost) return; G.running = !G.running; G.lastTickAt = performance.now(); updateSide(); };
+  $('#runBtn').onclick = () => { if (!G || G.done || G.lost) return; G.running = !G.running; G.pasoAnim = false; G.lastTickAt = performance.now(); Sonido.efecto(G.running ? 'encender' : 'pausar'); updateSide(); };
+  // Paso: un tick y se detiene (con la animación de ese tick). Encender sigue desde ahí.
+  $('#stepBtn').onclick = () => {
+    if (!G || G.done || G.lost) return;
+    G.running = false; G.pasoAnim = true; G.lastTickAt = performance.now();
+    Sonido.efecto('paso'); avanzar();
+  };
   document.querySelectorAll('.speed button').forEach(b => { b.onclick = () => { G.speed = +b.dataset.speed; updateSide(); }; });
   $('#resetBtn').onclick = () => { resetProduction(); updateSide(); toast(J.reinicio); };
   $('#clearBtn').onclick = () => {
