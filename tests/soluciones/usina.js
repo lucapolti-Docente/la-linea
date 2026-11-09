@@ -50,6 +50,7 @@ export default {
     mala: a => linea(a, 'gas', a.camion(), ['caldera'])
   },
   e_pico: {
+    sinParalelo: a => linea(a, 'gas', a.camion(), ['caldera', 'vapor', 'generador']),
     // Dos máquinas de vapor en paralelo
     buena: a => { const c = linea(a, 'gas', a.camion(), ['caldera', 'repartidor', 'vapor', 'generador']); a.ramaLinea(c[1], c[3], ['vapor']); },
     mala: a => linea(a, 'gas', a.camion(), ['caldera', 'vapor', 'generador'])

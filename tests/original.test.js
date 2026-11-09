@@ -12,15 +12,13 @@ import { station } from '../src/generadores/comun.js';
 import { mulberry32 } from '../src/motor/azar.js';
 import { SOLUCIONES } from './soluciones/correr.js';
 import { crearApi } from './soluciones/api.js';
+import { GENERADOR_NUEVO, HORARIO_NUEVO, cambio } from './cambios.js';
 
 const require = createRequire(import.meta.url);
 const O = require('../herramientas/motor-original.cjs')();
 
 const SEMILLAS = [1, 2, 3, 77, 4242];
 
-/* Niveles cuyo generador se corrigió a propósito (ver DECISIONES.md): el tablero tiene la misma forma,
-   pero la secuencia de materiales es otra, así que no se compara la simulación. */
-const CAMBIADOS = { reci: ['r_centro', 'r_planta', 'r_reuso'] };
 const TICKS = 160;
 
 /* Copia comparable de una celda: sin carteles (algunos corrigen números de nivel viejos). */
@@ -90,6 +88,7 @@ function armarIgual(M, idx, seed) {
   const Go = O.getG();
   const Gn = crearPartida(MUNDO[M.id], idx, seed);
   expect(Gn.N, 'N con semilla ' + seed).toBe(Go.N);
+  if (cambio(HORARIO_NUEVO, M.id, MUNDO[M.id].levels[idx].id)) Go.dl = Gn.dl;
   expect(Gn.dl, 'horario con semilla ' + seed).toBe(Go.dl);
   expect(tablero(Gn.grid), 'tablero con semilla ' + seed).toEqual(tablero(Go.grid));
   return { Go, Gn };
@@ -98,7 +97,7 @@ function armarIgual(M, idx, seed) {
 for (const M of MUNDOS) {
   describe(M.name + ': igual al original', () => {
     M.levels.forEach((L, idx) => {
-      const cambiado = (CAMBIADOS[M.id] || []).includes(L.id);
+      const cambiado = cambio(GENERADOR_NUEVO, M.id, L.id);
       it(L.n + '. ' + L.title + (cambiado ? ' (solo el tablero: generador corregido)' : ''), () => {
         for (const seed of SEMILLAS) {
           // Con cintas y estaciones al azar

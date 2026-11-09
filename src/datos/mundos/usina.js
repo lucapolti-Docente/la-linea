@@ -300,7 +300,7 @@ export default {
     news: ['repartidor', 'pico'],
     hint: 'Caldera → repartidor. De cada lado, una máquina de vapor y un generador. Después juntá las dos cintas.',
     check: 'eCheck',
-    dl: [4, 4],
+    dl: [4, 8],
     icono: ['estacion', 'repartidor',0,{fixed:true}],
     gen: 'genE18',
     par: 8,

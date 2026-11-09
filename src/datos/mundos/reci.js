@@ -190,7 +190,7 @@ export default {
     hint: 'Repartidor apenas sale la bolsa. Una recuperadora de cada lado, o más. Juntá los SÍ hacia el camión y los NO hacia el relleno.',
     check: 'r_cooperativa',
     binCheck: 'r_cooperativaTacho',
-    dl: [4, 6],
+    dl: [4, 10],
     icono: ['estacion', 'repartidor',0,{fixed:true}],
     gen: 'genR16',
     par: 30,

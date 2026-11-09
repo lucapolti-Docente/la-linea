@@ -106,6 +106,8 @@ export default {
   },
   persMaq: { buena: simple(['sierra', 'sierra', 'lijadora']), mala: simple(['sierra', 'lijadora']) },
   boleta: {
+    // Una sola persona lijando: no gasta de más, pero llega tarde
+    sinParalelo: simple(['sierra', 'cortar', 'lijar']),
     // Personas para cortar y lijar (no gastan luz), con dos lijadoras en paralelo
     buena: a => { const cells = a.linea(a.salida(a.entrada('tronco')), a.camion(), ['sierra', 'cortar', 'repartidor', 'lijar']); enParalelo(a, cells, 2, 'lijar', 4); },
     // Todo con máquinas: se pasa de los kWh
@@ -159,6 +161,7 @@ export default {
     }
   },
   mantenimiento: {
+    sinParalelo: simple(['sierra', 'lijadora']),
     // Dos sierras con un repartidor: mientras una para, la otra sigue
     buena: a => {
       const cells = a.linea(a.salida(a.entrada('tronco')), a.camion(), ['repartidor', 'sierra', 'lijadora']);
@@ -196,6 +199,7 @@ export default {
     mala: a => { const cam = a.camion(); a.tender(a.camino(a.salida(a.entrada('tabla')), cam), cam); }
   },
   dosBrazos: {
+    sinParalelo: a => mesas(a, a.camion()),
     buena: a => {
       const cam = a.camion(), [b1, b2] = a.entradas('barra');
       const A = a.linea(a.salida(b1), cam, ['cortaMetal', 'brazo'], { desdeIndice: 1 });

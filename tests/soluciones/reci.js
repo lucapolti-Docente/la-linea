@@ -58,6 +58,7 @@ export default {
   },
 
   r_cooperativa: {
+    sinParalelo: a => arbol(a, () => ({ s: 'recReciclable', si: a.camion(), no: a.tacho() })),
     // Llega una cosa por tick: una sola recuperadora no da abasto. Repartidor y dos recuperadoras.
     buena: a => {
       const cam = a.camion(), bin = a.tacho(), p = ini(a);

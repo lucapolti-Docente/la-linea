@@ -4,7 +4,8 @@ import { createRequire } from 'module';
 import { MUNDOS } from '../src/mundos/index.js';
 import { par, estrellas } from '../src/motor/estrellas.js';
 import { horario } from '../src/motor/partida.js';
-import { jugar } from './soluciones/correr.js';
+import { jugar, SEMILLAS } from './soluciones/correr.js';
+import { HORARIO_NUEVO, cambio } from './cambios.js';
 
 const require = createRequire(import.meta.url);
 const O = require('../herramientas/motor-original.cjs')();
@@ -31,13 +32,24 @@ describe('Estrellas: par = L.par + N × L.per', () => {
 });
 
 describe('Horario de los camiones', () => {
-  it('es el mismo que en el original para cualquier pedido', () => {
+  it('es el mismo que en el original (o más largo, en los niveles que se corrigieron)', () => {
     const W = { muebles: O.WORLDS.muebles, reci: O.WORLDS.reci, ene: O.WORLDS.ene };
     for (const M of MUNDOS) M.levels.forEach((lv, i) => {
       const orig = W[M.id].levels[i];
       expect(orig.id).toBe(lv.id);
-      for (let N = 1; N <= 20; N++) expect(horario(lv, N), `${lv.id} con N=${N}`).toBe(orig.dl ? orig.dl(N) : 0);
+      for (let N = 1; N <= 20; N++) {
+        if (cambio(HORARIO_NUEVO, M.id, lv.id)) expect(horario(lv, N), `${lv.id} con N=${N}`).toBeGreaterThan(orig.dl(N));
+        else expect(horario(lv, N), `${lv.id} con N=${N}`).toBe(orig.dl ? orig.dl(N) : 0);
+      }
     });
+  });
+
+  // La solución sin paralelo (una sola persona o máquina donde hacen falta dos) tiene que seguir llegando tarde
+  it('en los niveles corregidos, la solución sin paralelo sigue perdiendo por tiempo', () => {
+    for (const [m, ids] of Object.entries(HORARIO_NUEVO)) for (const id of ids) for (const s of SEMILLAS) {
+      const r = jugar(m, id, s, 'sinParalelo', 1500);
+      expect(r.perdio && r.partida.lose.late, `${id}, semilla ${s}: ${r.motivo}`).toBe(true);
+    }
   });
 
   it('se puede terminar justo en el tick del horario; un tick después, el camión ya salió', () => {
