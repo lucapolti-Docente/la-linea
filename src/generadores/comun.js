@@ -22,3 +22,16 @@ export function addModule(g,mods,zones,x,y,w,h,label,icon,outs){
   for(const o of outs){const s=src(o.kind,o.opts||{});s.module=true;g[y+o.dy][x+w-1]=s;}
   mods.push({x,y,w,h,icon,outs:outs.map(o=>y+o.dy)});zones.push({x,y,w,h,label});
 }
+
+/* Secuencia con las proporciones exactas de una mezcla [[cosa, cuántas], ...], en orden al azar.
+   Así el tiempo que tarda la línea no depende de la suerte (se usa en niveles con horario). */
+export function bolsa(r, mix, vueltas = 8) {
+  const s = [];
+  for (let v = 0; v < vueltas; v++) {
+    const b = [];
+    mix.forEach(([k, n]) => { for (let i = 0; i < n; i++) b.push(k); });
+    for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+    s.push(...b);
+  }
+  return s;
+}

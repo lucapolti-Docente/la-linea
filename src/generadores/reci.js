@@ -1,7 +1,7 @@
 /* Generadores de la Planta de reciclaje: cada uno arma la cuadrícula de un nivel a partir del azar r (con semilla). */
 import { W, H } from '../motor/estado.js';
 import { E } from '../datos/etiquetas.js';
-import { ri, emptyGrid, src, truck, station, protect, addPillars, LB, FS, pb, stA, tgt, thermoT, addModule } from './comun.js';
+import { ri, emptyGrid, src, truck, station, protect, addPillars, LB, FS, pb, stA, tgt, thermoT, addModule, bolsa } from './comun.js';
 import { MIX1 } from '../datos/materiales.js';
 
 function genR1(r){const g=emptyGrid(),rs=ri(r,1,H-2),rt=ri(r,1,H-2),bx=ri(r,4,6),by=r()<.5?0:H-1,avoid=new Set();
@@ -14,7 +14,7 @@ function genR3(r){const g=emptyGrid(),rs=ri(r,1,H-2),rt=ri(r,1,H-2),avoid=new Se
   g[rs][0]=src('mezcla',{interval:2,mix:[['papel',4],['carton',1],['pet',1]]});g[rt][W-1]=truck('papel');g[0][5]={t:'bin',label:E.rellenoSanitario};
   protect(avoid,0,rs);protect(avoid,W-1,rt);protect(avoid,5,0);addPillars(g,r,1,avoid);return{g,N:3};}
 function genR4(r){const g=emptyGrid();
-  g[4][0]=src('mezcla',{interval:2,mix:[['papel',4],['pet',4],['vidrio',2],['basura',2],['organico',1]]});
+  const s=src('mezcla',{interval:2,mix:[['papel',4],['pet',4],['vidrio',2],['basura',2],['organico',1]]});s.seq=bolsa(r,s.mix);g[4][0]=s;
   g[1][W-1]=truck('papel',2);g[4][W-1]=truck('plastico',2);g[7][W-1]=truck('vidrio',3);g[0][4]={t:'bin',label:E.rellenoSanitario};return{g,N:7};}
 function genR5(r){const g=emptyGrid(),rs=ri(r,1,H-2),avoid=new Set();
   g[rs][0]=src('mezcla',{interval:2,mix:[['acero',1],['lata',1]]});g[1][W-1]=truck('acero',4);g[4][W-1]=truck('aluminio',4);
@@ -24,13 +24,13 @@ function genR6(r){const g=emptyGrid();
 function genR7(r){const g=emptyGrid(),rs=ri(r,1,H-2);
   g[rs][0]=src('mezcla',{interval:2,mix:[['pet',1],['petColor',1]]});g[1][W-1]=truck('pet',4);g[4][W-1]=truck('petColor',4);return{g,N:8};}
 function genR8(r){const g=emptyGrid();
-  g[4][0]=src('mezcla',{interval:2,mix:[['acero',2],['lata',2],['papel',2],['pet',2],['petColor',2],['basura',1]]});
+  const s=src('mezcla',{interval:2,mix:[['acero',2],['lata',2],['papel',2],['pet',2],['petColor',2],['basura',1]]});s.seq=bolsa(r,s.mix);g[4][0]=s;
   g[0][W-1]=truck('acero',2);g[2][W-1]=truck('papel',2);g[4][W-1]=truck('aluminio',2);g[6][W-1]=truck('pet',2);g[8][W-1]=truck('petColor',2);g[0][3]={t:'bin',label:E.rellenoSanitario};return{g,N:10};}
 function genR9(r){const g=emptyGrid(),rs=ri(r,1,H-2),rt=ri(r,1,H-2),avoid=new Set();
   g[rs][0]=src('mezcla',{interval:3,mix:[['pet',1]],dirty:true});g[rt][W-1]=truck();
   protect(avoid,0,rs);protect(avoid,W-1,rt);addPillars(g,r,1,avoid);return{g,N:5};}
 function genR10(r){const g=emptyGrid();
-  const s=src('mezcla',{interval:3,mix:[['vidrio',1]],defect:.4});g[3][0]=s;g[1][W-1]=truck('botellaRe',3);g[5][W-1]=truck('botella',3);return{g,N:6};}
+  const s=src('mezcla',{interval:3,mix:[['vidrio',1]],defect:.4});s.defectSeq=bolsa(r,[[true,2],[false,3]]);g[3][0]=s;g[1][W-1]=truck('botellaRe',3);g[5][W-1]=truck('botella',3);return{g,N:6};}
 function genR11(r){const g=emptyGrid();
   const so=src('mezcla',{interval:3,mix:[['organico',1]],compost:true});g[1][0]=so;FS(g,4,1,'compostera',0);
   g[5][0]=src('mezcla',{interval:3,mix:[['papel',1]]});g[1][W-1]=truck('compost',3);g[5][W-1]=truck('cartonNuevo',3);return{g,N:6};}

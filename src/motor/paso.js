@@ -232,7 +232,7 @@ export function step() {
     if (t.until && G.tick > t.until) { if (G.tick === t.until + 1) { G.mk = [x, y]; avisar(M.centralRota, 'warn'); } return; }
     t.cnt++;
     if (t.cnt >= t.interval) {
-      const defect = t.defect ? (t.made === 1 ? true : t.made === 0 ? false : G.drng() < t.defect) : false;
+      const defect = t.defectSeq ? t.defectSeq[t.made % t.defectSeq.length] : t.defect ? (t.made === 1 ? true : t.made === 0 ? false : G.drng() < t.defect) : false;
       let kind = t.kind;
       if (t.mix) { if (t.made < t.mix.length) kind = t.mix[t.made][0]; else { const tot = t.mix.reduce((a, m) => a + m[1], 0); let q = G.drng() * tot; for (const m of t.mix) { q -= m[1]; if (q < 0) { kind = m[0]; break; } } } }
       if (t.seq) kind = t.seq[t.made % t.seq.length];
