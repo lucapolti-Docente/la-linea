@@ -116,7 +116,7 @@ export const TX = {
     revisar: 'Revisar la línea', verPista: 'Ver pista'
   },
   diagrama: {
-    aria: 'Diagrama del nivel', si: 'SÍ', no: 'NO', entrada: 'Entrada', entrada1: 'Entrada 1', entrada2: 'Entrada 2', repartidor: 'Repartidor', fin: 'Fin',
+    aria: 'Diagrama del nivel', si: 'SÍ', no: 'NO', entrada: 'Entrada', entrada1: 'Entrada 1', entrada2: 'Entrada 2', repartidor: 'Repartidor', fin: 'Fin', otraVuelta: 'Vuelve a empezar',
     sano: '¿Sano?', tacho: 'Tacho', mesa: '¿Mesa?', camionMesas: 'Camión mesas', hierro: '¿Hierro?', camionHierro: 'Camión hierro', camionCajoneras: 'Camión cajoneras',
     tablaCorrederas: 'Tabla + 2 correderas', brazoCajon: 'Brazo cajón', cajon: 'Cajón', tablaCajones: 'Tabla + 2 cajones', brazoMueble: 'Brazo mueble', cajonera: 'Cajonera'
   }

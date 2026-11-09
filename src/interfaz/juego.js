@@ -14,7 +14,7 @@ import { paintIcon } from '../dibujo/util.js';
 import { drawBelt } from '../dibujo/cinta.js';
 import { drawItem } from '../dibujo/piezas.js';
 import { drawStation } from '../dibujo/estaciones.js';
-import { flowSVG } from '../dibujo/diagramas.js';
+import { diagrama } from '../dibujo/diagramas.js';
 import { dibujar, PROPIOS } from '../dibujo/iconos.js';
 import { drawBoard } from '../dibujo/tablero.js';
 import { drawStrip } from '../dibujo/portada.js';
@@ -66,7 +66,7 @@ function buildOrder() {
   let s = L.materials ? `<span class="chip plain">${L.materials}</span><span class="arrow">→</span>` : '';
   if (L.flow) s = L.flow.map(r => `<span class="chip">${r}</span>`).join('<span class="arrow">→</span>');
   else if (G.recipe) s += G.recipe.map(r => `<span class="chip">${STEP_SHORT[r]}</span>`).join('<span class="arrow">→</span>');
-  $('#orderSteps').innerHTML = L.diagram ? flowSVG(diag(L)) : s;
+  $('#orderSteps').innerHTML = L.diagram ? diagrama(diag(L)) : s;
   $('#goalTxt').textContent = L.goal(G.N, G);
   $('#newsList').innerHTML = L.news.length ? '' : `<p class="goal-txt" style="color:var(--muted)">${L.kind === 'Depurar' ? J.nadaDepurar : L.kind === 'Optimizá' ? J.nadaOptimiza : J.nadaDesafio}</p>`;
   if (L.news.length) $('#newsList').innerHTML = L.news.map(k => `<div class="new-item"><canvas width="40" height="40" data-p="${k}"></canvas><div><b>${PARTS[k].name}</b>${PARTS[k].short}</div></div>`).join('');

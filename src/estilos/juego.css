@@ -179,14 +179,18 @@ h1,h2,h3{text-wrap:balance}
 .order .qty{font-family:var(--f-display);font-size:36px;line-height:1;font-weight:800}
 .order .what{font-weight:700}
 .slots{display:flex;flex-direction:column;gap:8px}
-.flow{width:100%;height:auto;display:block}
-.flow .fb{fill:var(--panel-2);stroke:var(--line);stroke-width:1.2}
-.flow .fb.end{stroke:var(--ok)}.flow .fb.bad{stroke:var(--bad)}.flow .fb.acc{stroke:var(--accent)}
-.flow .fd{fill:rgba(242,182,50,.14);stroke:var(--accent);stroke-width:1.4}
-.flow .ft{fill:var(--ink);font:700 10.5px var(--f-body);text-anchor:middle}
-.flow .fa{stroke:var(--muted);stroke-width:1.6;fill:none}.flow .fa.yes{stroke:var(--ok)}.flow .fa.no{stroke:var(--bad)}
-.flow .fm{fill:var(--muted)}.flow .fm.yes{fill:var(--ok)}.flow .fm.no{fill:var(--bad)}
-.flow .fl{font:800 10px var(--f-body);text-anchor:middle}.flow .fl.yes{fill:var(--ok)}.flow .fl.no{fill:var(--bad)}.flow .fl.acc{fill:var(--accent)}
+/* Diagramas del objetivo: cajas HTML con letra de 12-13 px, ramas con sangría */
+.fh{display:flex;flex-direction:column;gap:6px;font:700 13px/1.2 var(--f-body);color:var(--ink);width:100%}
+.fh-row,.fh-br{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px}
+.fh-n{display:inline-flex;align-items:center;gap:5px;max-width:100%}
+.fh-b{display:inline-block;max-width:100%;padding:5px 8px;border:1.5px solid var(--line);border-radius:7px;background:var(--panel-2);overflow-wrap:break-word}
+.fh-b.end{border-color:var(--ok)}.fh-b.bad{border-color:var(--bad)}.fh-b.acc{border-color:var(--accent)}
+.fh-q{border-color:var(--accent);background:rgba(242,182,50,.14);border-radius:14px}
+.fh-ar{color:var(--muted);font-size:15px}.fh-ar.no{color:var(--bad)}
+.fh-sub{display:flex;flex-direction:column;gap:6px;padding-left:10px;margin-left:8px;border-left:2px solid var(--line)}
+.fh-l{font-weight:800;font-size:12px}.fh-l.yes{color:var(--ok)}.fh-l.no{color:var(--bad)}.fh-l.acc{color:var(--accent)}.fh-l.in{color:var(--muted);width:100%}
+.fh-l:not(:empty):not(.in)::after{content:" →";color:var(--muted)}
+.fh-l:empty::after{content:"→";color:var(--muted)}
 .dato{border-left:3px solid var(--accent);padding:4px 0 4px 12px;color:var(--muted);font-size:15px}
 .dato b{color:var(--accent);display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .kind{display:inline-flex;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}

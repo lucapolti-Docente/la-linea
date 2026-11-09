@@ -8,7 +8,7 @@ import { TX } from '../datos/textos.js';
 import { fmt } from '../datos/mensajes.js';
 import { paintIcon, starSvg } from '../dibujo/util.js';
 import { drawItem } from '../dibujo/piezas.js';
-import { flowSVG } from '../dibujo/diagramas.js';
+import { diagrama } from '../dibujo/diagramas.js';
 import { dibujar } from '../dibujo/iconos.js';
 import { guardarEstrellas } from '../guardado.js';
 import { show } from './pantallas.js';
@@ -33,7 +33,7 @@ function kindCls(k) { return k.startsWith('Desaf') ? 'des' : k === 'Depurar' ? '
 export function showIntro() {
   const L = G.L;
   openModal(`<span class="eyebrow">${fmt(V.intro, { acto: L.act, n: L.n })}</span><h2>${L.title}</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="kind ${kindCls(L.kind)}">${L.kind}</span><span class="chip">${L.concept}</span></div><p>${L.text}</p>
-   ${L.diagram ? `<div>${flowSVG(diag(L))}</div>` : ''}
+   ${L.diagram ? `<div>${diagrama(diag(L))}</div>` : ''}
    ${L.dato ? `<div class="dato"><b>${V.industriaReal}</b>${L.dato}</div>` : ''}
    <div class="preview"><canvas id="introIcon" width="64" height="64"></canvas><div><div class="eyebrow">${V.pedido}</div><strong>${G.N} ${G.productName}</strong></div></div>
    <div class="modal-actions"><button class="btn primary big" data-close>${V.aTrabajar}</button><button class="btn" id="introHow">${V.comoFunciona}</button><button class="btn" id="introBack">${V.volverNiveles}</button></div>`,
@@ -42,7 +42,7 @@ export function showIntro() {
 
 export function showParts() {
   const L = G.L; G.running = false; updateSide();
-  openModal(`<span class="eyebrow">${fmt(V.partesTitulo, { n: L.n, titulo: L.title })}</span><h2>${V.comoFunciona}</h2><p>${L.goal(G.N, G)}</p>${L.diagram ? `<div>${flowSVG(diag(L))}</div>` : ''}
+  openModal(`<span class="eyebrow">${fmt(V.partesTitulo, { n: L.n, titulo: L.title })}</span><h2>${V.comoFunciona}</h2><p>${L.goal(G.N, G)}</p>${L.diagram ? `<div>${diagrama(diag(L))}</div>` : ''}
    <div class="parts">${L.parts.map(k => `<div class="part"><canvas width="56" height="56" data-p="${k}"></canvas><div><h4>${PARTS[k].name}${L.news.includes(k) ? ` <span class="chip">${V.nuevo}</span>` : ''}</h4><p>${PARTS[k].text}</p></div></div>`).join('')}</div>
    <div class="modal-actions"><button class="btn primary" data-close>${V.entendido}</button></div>`,
   () => $('#modalBody').querySelectorAll('canvas[data-p]').forEach(cv => paintIcon(cv, c => { c.scale(.92, .92); dibujar(c, PARTS[cv.dataset.p].dibujo); }, 56)), true);
