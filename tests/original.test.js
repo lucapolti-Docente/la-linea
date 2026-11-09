@@ -10,18 +10,24 @@ import { crearPartida } from '../src/motor/partida.js';
 import { step } from '../src/motor/paso.js';
 import { station } from '../src/generadores/comun.js';
 import { mulberry32 } from '../src/motor/azar.js';
+import { SOLUCIONES } from './soluciones/correr.js';
+import { crearApi } from './soluciones/api.js';
 
 const require = createRequire(import.meta.url);
 const O = require('../herramientas/motor-original.cjs')();
 
 const SEMILLAS = [1, 2, 3, 77, 4242];
+
+/* Niveles cuyo generador se corrigió a propósito (ver DECISIONES.md): el tablero tiene la misma forma,
+   pero la secuencia de materiales es otra, así que no se compara la simulación. */
+const CAMBIADOS = { reci: ['r_centro', 'r_planta', 'r_reuso'] };
 const TICKS = 160;
 
 /* Copia comparable de una celda: sin carteles (algunos corrigen números de nivel viejos). */
 function celda(t) {
   if (!t) return null;
   const o = {};
-  for (const [k, v] of Object.entries(t)) if (k !== 'label' && typeof v !== 'function') o[k] = v;
+  for (const [k, v] of Object.entries(t)) if (!['label', 'seq', 'defectSeq'].includes(k) && typeof v !== 'function') o[k] = v;
   return o;
 }
 const tablero = g => JSON.parse(JSON.stringify(g.map(f => f.map(celda))));
@@ -49,26 +55,63 @@ function editarIgual(Go, Gn, mundo, L, r) {
   }
 }
 
+/* Copia al tablero original lo que la solución puso en el nuevo (cintas y estaciones). */
+function copiarArmado(Go, Gn, antes) {
+  Gn.grid.forEach((fila, y) => fila.forEach((t, x) => {
+    if (t === antes[y][x]) return;
+    if (!t) { Go.grid[y][x] = null; return; }
+    if (t.t === 'belt') { Go.grid[y][x] = { ...t }; return; }
+    const s = O.station(t.type, t.dir, t.fixed); s.alt = t.alt;
+    if (t.thr !== undefined) s.thr = t.thr; if (t.time !== undefined) s.time = t.time;
+    Go.grid[y][x] = s;
+  }));
+  // Lo que se ajustó sobre estaciones fijas (minutos, grados) o se giró
+  Gn.grid.forEach((fila, y) => fila.forEach((t, x) => {
+    const o = Go.grid[y][x];
+    if (t && o && t.t === o.t && t === antes[y][x]) for (const k of ['dir', 'alt', 'thr', 'time']) if (t[k] !== undefined) o[k] = t[k];
+  }));
+}
+
+/* Corre los dos motores a la par y compara cada tick. */
+function simularIgual(Go, Gn, que, ticks) {
+  O.carteles.length = 0;
+  for (let t = 0; t < ticks && !Go.done && !Go.lost; t++) {
+    O.step();
+    usarPartida(Gn); step();
+    const cn = Gn.eventos.splice(0).map(e => e.msg), co = O.carteles.splice(0);
+    expect(resumen(Gn), que + ', tick ' + (t + 1)).toEqual(resumen(Go));
+    expect(cn, que + ', carteles del tick ' + (t + 1)).toEqual(co);
+  }
+}
+
+/* Arma el mismo nivel y semilla en los dos motores y verifica que el tablero sea igual. */
+function armarIgual(M, idx, seed) {
+  O.setWorld(M.id); O.startLevel(idx, seed);
+  const Go = O.getG();
+  const Gn = crearPartida(MUNDO[M.id], idx, seed);
+  expect(Gn.N, 'N con semilla ' + seed).toBe(Go.N);
+  expect(Gn.dl, 'horario con semilla ' + seed).toBe(Go.dl);
+  expect(tablero(Gn.grid), 'tablero con semilla ' + seed).toEqual(tablero(Go.grid));
+  return { Go, Gn };
+}
+
 for (const M of MUNDOS) {
-  describe(`${M.name}: igual al original`, () => {
+  describe(M.name + ': igual al original', () => {
     M.levels.forEach((L, idx) => {
-      it(`${L.n}. ${L.title}`, () => {
+      const cambiado = (CAMBIADOS[M.id] || []).includes(L.id);
+      it(L.n + '. ' + L.title + (cambiado ? ' (solo el tablero: generador corregido)' : ''), () => {
         for (const seed of SEMILLAS) {
-          O.setWorld(M.id); O.startLevel(idx, seed);
-          const Go = O.getG();
-          const Gn = crearPartida(MUNDO[M.id], idx, seed);
-          expect(Gn.N, `N con semilla ${seed}`).toBe(Go.N);
-          expect(Gn.dl, `horario con semilla ${seed}`).toBe(Go.dl);
-          expect(tablero(Gn.grid), `tablero con semilla ${seed}`).toEqual(tablero(Go.grid));
+          // Con cintas y estaciones al azar
+          const { Go, Gn } = armarIgual(M, idx, seed);
+          if (cambiado) continue;
           editarIgual(Go, Gn, M.id, L, mulberry32(seed * 31 + idx));
-          O.carteles.length = 0;
-          for (let t = 0; t < TICKS && !Go.done && !Go.lost; t++) {
-            O.step();
-            usarPartida(Gn); step();
-            const cn = Gn.eventos.splice(0).map(e => e.msg), co = O.carteles.splice(0);
-            expect(resumen(Gn), `semilla ${seed}, tick ${t + 1}`).toEqual(resumen(Go));
-            expect(cn, `carteles: semilla ${seed}, tick ${t + 1}`).toEqual(co);
-          }
+          simularIgual(Go, Gn, 'al azar, semilla ' + seed, TICKS);
+          // Con la solución guardada, hasta que gana
+          const s = armarIgual(M, idx, seed), antes = s.Gn.grid.map(f => f.slice());
+          SOLUCIONES[M.id][L.id].buena(crearApi());
+          copiarArmado(s.Go, s.Gn, antes);
+          simularIgual(s.Go, s.Gn, 'solución, semilla ' + seed, 3000);
+          expect(s.Go.done, 'la solución gana en el original, semilla ' + seed).toBe(true);
         }
       });
     });
