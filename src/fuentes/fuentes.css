@@ -1,0 +1,14 @@
+/* Fuentes incluidas en el juego (no se cargan de internet: andan también desde el pendrive).
+   Licencia SIL Open Font License 1.1 (ver LICENCIA.md). Solo los caracteres latinos. */
+@font-face {
+  font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(./atkinson-400.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(./atkinson-700.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Big Shoulders Stencil Display'; font-style: normal; font-weight: 700 800; font-display: swap;
+  src: url(./big-shoulders-stencil.woff2) format('woff2');
+}

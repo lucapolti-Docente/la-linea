@@ -1,4 +1,5 @@
 /* Punto de entrada: estilos, textos fijos, progreso guardado y pantalla de inicio. */
+import './fuentes/fuentes.css';
 import './estilos/juego.css';
 import './mundos/index.js';
 import { aplicarTextos, ui } from './interfaz/dom.js';
