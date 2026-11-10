@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "soluciones": "node herramientas/soluciones.js",
+    "guia": "node herramientas/guia.js",
     "capturas:comparar": "node herramientas/comparar-capturas.js"
   },
   "devDependencies": {
