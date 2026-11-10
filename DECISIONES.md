@@ -60,3 +60,16 @@
 - **Páginas sin internet**: las fuentes van incrustadas en cada HTML, así la guía se ve igual desde el pendrive.
 - **Link desde el juego**: en Progreso → Para docentes, «Guía docente y ficha para imprimir». En el pendrive el juego se llama `la-linea.html`, así que el build cambia el link «Abrir el juego» de la página de docentes (`vite.config.js`).
 - La ficha usa símbolos dibujados (entrada, cinta, estación, pregunta, repartidor, camión, tacho) y pide nombre y grado solo en el papel: el juego no guarda datos de los chicos.
+
+## Etapa 5: publicar (10/11/2026)
+
+- **Verificación tocando como un chico** (Playwright, clics reales en la paleta, el tablero y el selector de lados; la solución guardada de cada nivel dice qué casilleros tocar):
+  - 1366×768: ganados muebles 7 (Depurar), 15, 26; reci 1, 9, 17; ene 1, 10, 18. Velocidades x1, x2 y x4. Muebles 9 con la solución mala: pedido devuelto con 3 errores y el motivo.
+  - 360×620: ganados muebles 2 y 7, reci 9, ene 10; muebles 9 pierde con 3 errores. Paso avanza de a un tick.
+  - «Volver a la línea rota» deja el tablero como al empezar (solo cambian los contadores de producción, que se ponen en cero).
+  - Consola sin errores en todas.
+- **Pendrive**: `la-linea.html` con la red bloqueada: cero pedidos a internet, fuentes cargadas, Paso y Encender andan, y la guía docente vuelve al juego.
+- **Publicación**: push forzado de la historia nueva a `main` (con OK de Luca; la versión vieja quedó en la rama `version-de-cero`). GitHub Actions corrió los tests, armó y publicó. Comprobado en https://lucapolti-docente.github.io/la-linea/ en las dos medidas.
+- **Portada**: La Línea ya estaba (4.º a 7.º, con link a docentes). Se dejó el dibujo de Nora, que era de la versión anterior y ya no aparece en el juego: es propio y va con «Armá la fábrica».
+- Las páginas de docentes llevan el mismo ícono que el juego (el navegador pedía un favicon que no existía y daba un 404).
+- Original y contexto movidos a `originales/listos/`.
