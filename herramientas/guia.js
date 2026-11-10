@@ -89,6 +89,8 @@ const pagina = (titulo, cuerpo, extraCss = '') => `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(titulo)}</title>
+<!-- el mismo ícono que el juego (index.html) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a2028'/%3E%3Crect x='10' y='42' width='80' height='26' rx='5' fill='%2338434f'/%3E%3Cpath d='M22 48l8 7-8 7M44 48l8 7-8 7M66 48l8 7-8 7' fill='none' stroke='%23f2b632' stroke-width='6'/%3E%3C/svg%3E">
 <!-- Generado con npm run guia a partir de src/datos/docentes.js y de los datos de cada mundo. No editar a mano. -->
 <style>
 ${CSS}
