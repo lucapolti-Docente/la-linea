@@ -43,3 +43,4 @@ Este CLAUDE.md manda por sobre el general de `juegos-docente/`: acá sí hay npm
 - `npm run capturas:comparar` después de sacar capturas nuevas con la skill `verificar-juego` (base en `pruebas/base/`).
 - Skill `verificar-juego` en 1366×768 y en 360×620, tocando los botones como un chico: sin errores en la consola.
 - Si cambia algo del armado, probar también `npm run build:pendrive` abriendo el archivo con doble clic.
+- Si cambia un nivel o un texto para docentes (`src/datos/docentes.js`): `npm run guia` vuelve a armar `public/docentes/` (páginas y PDF).

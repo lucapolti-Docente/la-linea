@@ -50,3 +50,13 @@
 ### Propuestas (esperan OK)
 - Estrellas que premien también pocas piezas o poca energía.
 - «La enfardadora» (`r_fardo`): el camión de papel acepta un fardo de plástico puro.
+
+## Etapa 4: docentes (9/11/2026)
+
+- **`npm run guia`** (`herramientas/guia.js`) arma `public/docentes/`: la página para docentes, una guía por mundo (HTML y PDF de 8 hojas) y la ficha en papel (PDF de 2 hojas). Los PDF se imprimen con Chrome o Edge sin ventana.
+- **Los niveles salen de los datos**: título, tipo, concepto, diagrama (el mismo del juego), dato real y reflexión de cada acto se leen de `src/datos/mundos/`. Lo que es solo para el docente (qué hacen los chicos, grado sugerido por acto, ejes del DC, actividad sin pantalla, preguntas de cierre, ficha) está en `src/datos/docentes.js`. Si cambia un nivel, se corre `npm run guia` otra vez.
+- **Grado sugerido por acto**: Muebles 4.º / 5.º / 6.º y 7.º; Reciclaje 4.º y 5.º / 5.º y 6.º / 6.º y 7.º; Usina 5.º / 6.º / 7.º (la energía es más abstracta). Es una sugerencia: todos los niveles siguen abiertos.
+- **Diseño Curricular**: tabla de ejes por mundo, escrita en general (sin citas textuales) y marcada «Sin verificar nivel por nivel», con el link a la página oficial de primaria (buenosaires.gob.ar/educacion/diseno-curricular-nivel-primario). Ojo: la Resolución 80/2026 actualiza el Diseño Curricular; conviene revisarla antes de planificar.
+- **Páginas sin internet**: las fuentes van incrustadas en cada HTML, así la guía se ve igual desde el pendrive.
+- **Link desde el juego**: en Progreso → Para docentes, «Guía docente y ficha para imprimir». En el pendrive el juego se llama `la-linea.html`, así que el build cambia el link «Abrir el juego» de la página de docentes (`vite.config.js`).
+- La ficha usa símbolos dibujados (entrada, cinta, estación, pregunta, repartidor, camión, tacho) y pide nombre y grado solo en el papel: el juego no guarda datos de los chicos.
