@@ -59,7 +59,7 @@ export const TX = {
   progreso: {
     eyebrow: 'Ajustes', nombre: 'Tu nombre', nombreAyuda: 'Así sale en el resumen para el docente. Queda guardado en esta compu.', nombrePlaceholder: 'Nombre y grado',
     copiar: 'Copiar resumen para el docente', copiado: 'Copiado', seleccionado: 'Seleccionado: copialo con Ctrl+C',
-    docentes: 'Para docentes', docentesAyuda: 'Todos los niveles están abiertos: se puede empezar la clase en cualquiera. El progreso (estrellas) queda guardado solo en esta compu y este navegador.',
+    docentes: 'Para docentes', guia: 'Guía docente y ficha para imprimir', docentesAyuda: 'Todos los niveles están abiertos: se puede empezar la clase en cualquiera. El progreso (estrellas) queda guardado solo en esta compu y este navegador.',
     borrar: 'Borrar el progreso de esta compu', seguro: '¿Seguro? Tocá otra vez para borrar',
     resumenMundo: '{done} de {total} niveles · {st} de {max} estrellas',
     textoTitulo: 'La Línea · {nombre} · {fecha}', sinNombre: '(sin nombre)', textoMundo: '{mundo}: {done}/{total} niveles, {st}/{max} estrellas'
