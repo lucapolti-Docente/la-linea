@@ -34,3 +34,19 @@
 ### Para la etapa 3 (encontrado al escribir las soluciones)
 - Horarios justos confirmados con soluciones razonables: La boleta de luz y Mantenimiento quedan con 6 ticks de margen. También ajustados: La hora pico (4), Dos brazos (5) y La cooperativa (9).
 - "La enfardadora": el camión de papel acepta un fardo de plástico puro (la regla solo revisa que no esté mezclado). Es una regla del juego: lo propongo en la etapa 3.
+
+## Etapa 3: errores conocidos (9/11/2026)
+
+- **Horarios con más margen** en La boleta de luz, Mantenimiento, Dos brazos, La hora pico y La cooperativa. La regla: unos 35 % de margen sobre la solución buena, sin pasar el tick en que llega la solución sin paralelo (una sola persona o máquina donde hacen falta dos), que tiene que seguir perdiendo. Margen nuevo de la solución buena: 8, 11, 20, 8 y 13 ticks (antes 6, 6, 5, 4 y 9). En La boleta y La hora pico no se puede dar más sin que gane la solución sin paralelo (tarda 41 ticks contra 32). Test nuevo: la solución `sinParalelo` pierde por tiempo con las 30 semillas. Los cambios a propósito respecto del original están en `tests/cambios.js`.
+- **«Volver a la línea rota»** en los 8 niveles para depurar: reemplaza a «Otra línea», que ahí no servía (el tablero es fijo). Rearma el tablero con el mismo generador y semilla (`volverAlInicio` en `motor/partida.js`).
+- **Diagramas en HTML** (comparar-enfoques, 9/11/2026). Opciones: A) cajas HTML con texto que se acomoda; B) el mismo SVG dibujado al ancho real con letra de 12 px. Medido con los 82 diagramas a 200, 252 y 579 px: A, letra 12 px y 0 desbordes, alto medio 110 px; B, 43 diagramas con texto desbordado a 200 px y alto medio 156 px. Ganó A. Antes: SVG de 300 achicado a 200 px, letra de 7 px.
+- **Fuentes incluidas** (`src/fuentes/`, woff2, licencia OFL): el pendrive no pide nada a internet (probado con la red bloqueada).
+- **Sonido** generado con Web Audio (`src/sonido.js`, basado en el de Planta Reci): poner y sacar piezas, encender, pausa, paso, cada pieza que llega al camión (la nota sube), error, ganar y perder. Botón de silencio arriba a la derecha; se recuerda en `laLinea.sonido`, aparte, para no cambiar la forma de `laLinea.v1`.
+- **Botón Paso**: avanza un tick con su animación y frena. Encender sigue desde ahí.
+
+### Errores que arreglé
+- En el celular, el título del nivel arriba quedaba cortado en «A…». Debajo de 480 px se oculta (ya está en el objetivo y en la presentación).
+
+### Propuestas (esperan OK)
+- Estrellas que premien también pocas piezas o poca energía.
+- «La enfardadora» (`r_fardo`): el camión de papel acepta un fardo de plástico puro.

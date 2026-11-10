@@ -37,6 +37,7 @@ Este CLAUDE.md manda por sobre el general de `juegos-docente/`: acá sí hay npm
 
 ## Antes de dar algo por terminado
 - `npm test`: el motor nuevo da lo mismo que el original tick a tick (`tests/original.test.js`), la solución guardada de cada nivel gana con 30 semillas y la mala pierde (`tests/niveles.test.js`), estrellas y horario (`tests/reglas.test.js`).
+- Los cambios hechos a propósito respecto del original (generadores, horarios) se anotan en `tests/cambios.js`; si no, los tests de comparación fallan.
 - `npm run soluciones` al tocar un nivel, un generador o una regla: muestra cuántas semillas gana cada solución, las estrellas y el margen contra el horario. Para mirar un tablero: `node herramientas/ver-tablero.js <mundo> <nivel> <semilla>`.
 - Cada nivel nuevo necesita su solución buena y mala en `tests/soluciones/<mundo>.js`.
 - `npm run capturas:comparar` después de sacar capturas nuevas con la skill `verificar-juego` (base en `pruebas/base/`).

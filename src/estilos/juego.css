@@ -23,6 +23,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .brand{font-family:var(--f-display);font-weight:800;font-size:28px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .brand b{color:var(--accent);font-weight:800}
 .bar-info{margin-left:auto;color:var(--muted);font-size:14px;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:480px){.bar-info{visibility:hidden}}
 
 .scrim{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(8,10,14,.6);z-index:40}
 .drawer{position:fixed;top:0;bottom:0;left:0;width:min(300px,86vw);background:var(--panel);border-right:1px solid var(--line);z-index:50;transform:translateX(-105%);transition:transform .22s ease;padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:16px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:14px;display:flex;flex-direction:column;gap:4px}
